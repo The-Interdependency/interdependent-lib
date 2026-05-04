@@ -1,0 +1,69 @@
+name: Sync lib folders from source repos
+
+on:
+  workflow_dispatch:          # run manually from the Actions tab
+  schedule:
+    - cron: "0 3 * * 1"       # every Monday at 03:00 UTC (disabled by default — uncomment to activate)
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout interdependent-lib
+        uses: actions/checkout@v4
+
+      # ── PCEA ────────────────────────────────────────────────────────────────
+      - name: Sync pcea lib
+        run: |
+          rm -rf /tmp/pcea-src
+          git clone --depth 1 https://github.com/The-Interdependency/PCEA.git /tmp/pcea-src
+          mkdir -p libs/pcea/src
+          rsync -av --delete --exclude='README.md' /tmp/pcea-src/pcea/ libs/pcea/src/
+
+      # ── PTCA ────────────────────────────────────────────────────────────────
+      - name: Sync ptca lib
+        run: |
+          rm -rf /tmp/ptca-src
+          git clone --depth 1 https://github.com/The-Interdependency/PTCA.git /tmp/ptca-src
+          mkdir -p libs/ptca/src
+          rsync -av --delete --exclude='README.md' /tmp/ptca-src/ptca/ libs/ptca/src/
+
+      # ── UCNS ────────────────────────────────────────────────────────────────
+      - name: Sync ucns lib
+        run: |
+          rm -rf /tmp/ucns-src
+          git clone --depth 1 https://github.com/The-Interdependency/ucns.git /tmp/ucns-src
+          mkdir -p libs/ucns/src
+          rsync -av --delete --exclude='README.md' /tmp/ucns-src/ucns/ libs/ucns/src/
+
+      # ── PCNA core ───────────────────────────────────────────────────────────
+      - name: Sync pcna core
+        run: |
+          rm -rf /tmp/pcna-src
+          git clone --depth 1 https://github.com/The-Interdependency/pcna.git /tmp/pcna-src
+          mkdir -p libs/pcna/src
+          rsync -av --delete --exclude='README.md' /tmp/pcna-src/core/ libs/pcna/src/
+
+      # ── AIMMH ───────────────────────────────────────────────────────────────
+      - name: Sync aimmh lib
+        run: |
+          rm -rf /tmp/aimmh-src
+          git clone --depth 1 https://github.com/The-Interdependency/aimmh.git /tmp/aimmh-src
+          mkdir -p libs/aimmh/src
+          rsync -av --delete --exclude='README.md' /tmp/aimmh-src/aimmh_lib/ libs/aimmh/src/
+
+      # ── Commit if anything changed ─────────────────────────────────────────
+      - name: Commit synced files
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add libs/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: sync lib sources from upstream repos [skip ci]"
+            git push
+          fi
