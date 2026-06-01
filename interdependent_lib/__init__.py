@@ -15,7 +15,7 @@ Each sub-library is an optional dependency — install the extras you need:
 
 from __future__ import annotations
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "Erin Patrick Spencer"
 __email__ = "wayseer@interdependentway.org"
 __license__ = "Apache-2.0"

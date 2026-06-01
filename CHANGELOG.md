@@ -9,6 +9,22 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+---
+
+## [0.1.1]
+
+### Fixed
+- Republish so the `interdependent_lib` Python package payload is actually
+  shipped in the wheel. The 0.1.0 release was metadata-only — `pip install
+  interdependent-lib` produced no importable module, breaking downstream
+  consumers (notably a0's startup gate `require_interdependent_core_ready`).
+
+---
+
+## [0.1.0] — TBD
+
+_Initial public release._
+
 ### Added
 - Initial repository scaffold combining four-letter and five-letter acronym libraries
 - `pyproject.toml` meta-package wiring `pcea`, `ptca-lib`, `ucns`, and `aimmh-lib`
@@ -17,9 +33,3 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - `COPILOT.md` — GitHub Copilot + ecosystem best practices
 - `CONTRIBUTING.md` — contributor guide
 - `.github/workflows/sync-libs.yml` — optional automated lib-sync workflow
-
----
-
-## [0.1.0] — TBD
-
-_Initial public release._
