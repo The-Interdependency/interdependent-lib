@@ -293,8 +293,15 @@ def scan(roots: Iterable[Path], *, skip: Iterable[str] | None = None) -> ModuleG
 
 
 def _discover_repo_roots(root: Path) -> list[Path]:
-    """If root looks like a workspace (contains child dirs that are repos /
-    package roots), scan each child; otherwise scan root itself."""
+    """Resolve a scan target into roots.
+
+    If ``root`` is itself a repo/package (has ``.git`` or ``pyproject.toml``),
+    scan it whole — never descend into a packaged subdir (e.g. a monorepo's
+    ``backend/pyproject.toml``), which would silently hide the rest of the repo.
+    Only when ``root`` is a bare workspace do we expand to its repo-like
+    children."""
+    if (root / ".git").exists() or (root / "pyproject.toml").exists():
+        return [root]
     children = [c for c in sorted(root.iterdir()) if c.is_dir() and not c.name.startswith(".")]
     repo_like = [c for c in children if (c / ".git").exists() or (c / "pyproject.toml").exists()]
     return repo_like or [root]

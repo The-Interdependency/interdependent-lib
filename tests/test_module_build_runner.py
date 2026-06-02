@@ -125,3 +125,24 @@ def test_scan_builds_graph_with_coverage_and_gaps(tmp_path):
 
     # edge from requires; beta does not exist -> unresolved
     assert {"from": "alpha", "to": "beta", "resolved": False} in d["edges"]
+
+
+def test_discover_roots_scans_repo_whole_not_packaged_subdir(tmp_path):
+    # regression: a repo with a packaged subdir (backend/pyproject.toml) must
+    # be scanned whole, not collapsed to the subdir (which hid the rest).
+    repo = tmp_path / "repo"
+    (repo / ".git").mkdir(parents=True)
+    (repo / "backend").mkdir()
+    (repo / "backend" / "pyproject.toml").write_text("[project]\n", encoding="utf-8")
+    assert runner._discover_repo_roots(repo) == [repo]
+
+
+def test_discover_roots_expands_bare_workspace(tmp_path):
+    ws = tmp_path / "ws"
+    (ws / "r1").mkdir(parents=True)
+    (ws / "r1" / ".git").mkdir()
+    (ws / "r2").mkdir()
+    (ws / "r2" / "pyproject.toml").write_text("[project]\n", encoding="utf-8")
+    (ws / "notrepo").mkdir()
+    roots = set(runner._discover_repo_roots(ws))
+    assert roots == {ws / "r1", ws / "r2"}
