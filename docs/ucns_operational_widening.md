@@ -87,8 +87,7 @@ You meet the analytic frontier exactly when you forget you chose the primes.
 PCEA stays operational by **choosing its prime axis / sublattice**. The forward
 map composes within ⟨S⟩; the inverse is by key (the ordered operands, which name
 the axis), not by factor_search. Confirmed for the ternary unit
-(`ternary_widening_probe.py` [C]) and at prime 5 (`prime5_widening_probe.py`
-[C]). The stated PCEA invariant — *security rests on key management, not on
+(`ternary_widening_probe.py`) and at prime 5 (`prime5_widening_probe.py`).
 factor_search incompleteness* — is honored and now has a lattice statement:
 
 > PCEA operates inside a sublattice it selected; leaving that sublattice would
