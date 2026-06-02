@@ -49,6 +49,27 @@ Public API
 """
 from __future__ import annotations
 
+# === MODULE_BUILD ===
+# id: coherence_primes
+#   module_name: coherence_primes
+#   module_kind: engine
+#   summary: canonical recursive coherence-prime sequence registry (single source of truth)
+#   owner: Erin Spencer
+#   public_surface: is_coherence_prime, sequence_up_to, nth
+#   internal_surface: _build_up_to, _is_prime, _is_squarefree, _prime_factors
+#   auth_boundary: none
+#   storage_boundary: none
+#   network_boundary: none
+#   user_data_boundary: none
+#   admin_only: false
+#   tests: tests.test_coherence_primes
+#   rollout: default_enabled (re-exported from interdependent_lib package root)
+#   rollback: remove this module and its three package-root re-exports
+#   requires: none
+#   since: 2026-06-02
+#   unresolved: none
+# === END MODULE_BUILD ===
+
 # Base coherence set C0.
 _BASE: frozenset[int] = frozenset({3, 5, 7})
 
