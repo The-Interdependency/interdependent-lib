@@ -166,7 +166,7 @@ directory does not shadow stdlib `types`; the probe *logic* is unchanged.
   descended text, counting *distinct prime support*, not carrier size.
 - **The rare closed-class tail** (<0.7%) — carriers outside {8,16,32}; minor.
 
-## hmm
+## 7. Summary (intuition)
 
 The frontier got measured into a law and the law got proved on a carpet: 53
 prime axes, each a closed room, each pair of rooms joined only by the corridor
