@@ -128,22 +128,25 @@ def _build_up_to(limit: int) -> None:
     global _SCANNED_TO
     if limit <= _SCANNED_TO:
         return
-    for p in range(_SCANNED_TO + 1, limit + 1):
-        if not _is_prime(p):
-            continue
-        if p in _BASE:
-            continue
-        if (p - 1) % 4 != 0:
-            continue
-        kernel = (p - 1) // 4
-        if not _is_squarefree(kernel):
-            continue
-        # Condition 3: recursive ancestry — every kernel factor already admitted.
-        if _prime_factors(kernel) <= _KNOWN:
-            _CACHE.append(p)
-            _KNOWN.add(p)
-    _SCANNED_TO = limit
 
+    with _LOCK:
+        if limit <= _SCANNED_TO:
+            return
+        for p in range(_SCANNED_TO + 1, limit + 1):
+            if not _is_prime(p):
+                continue
+            if p in _BASE:
+                continue
+            if (p - 1) % 4 != 0:
+                continue
+            kernel = (p - 1) // 4
+            if not _is_squarefree(kernel):
+                continue
+            # Condition 3: recursive ancestry — every kernel factor already admitted.
+            if _prime_factors(kernel) <= _KNOWN:
+                _CACHE.append(p)
+                _KNOWN.add(p)
+        _SCANNED_TO = limit
 
 def is_coherence_prime(p: int) -> bool:
     """Return ``True`` if ``p`` is a coherence prime."""
