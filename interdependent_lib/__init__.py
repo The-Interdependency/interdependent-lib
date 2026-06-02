@@ -20,6 +20,17 @@ __author__ = "Erin Patrick Spencer"
 __email__ = "wayseer@interdependentway.org"
 __license__ = "Apache-2.0"
 
+# Canonical, dependency-free primitives that belong to no single sub-library.
+# The coherence-prime sequence is foundational to UCNS / PCNA / PTCA, so its
+# single source of truth lives here in the aggregator. Leaf libraries must not
+# import this package (that would invert the dependency graph), so they match
+# this behaviour rather than importing it.
+from interdependent_lib.coherence_primes import (
+    is_coherence_prime,
+    nth,
+    sequence_up_to,
+)
+
 # Registry of optional sub-libraries: logical_name -> import_name.
 # Libraries marked "(source-only)" are not yet on PyPI; they will appear
 # as False in available() unless installed manually from source.
@@ -45,4 +56,10 @@ def available() -> dict[str, bool]:
     }
 
 
-__all__ = ["__version__", "available"]
+__all__ = [
+    "__version__",
+    "available",
+    "is_coherence_prime",
+    "sequence_up_to",
+    "nth",
+]
