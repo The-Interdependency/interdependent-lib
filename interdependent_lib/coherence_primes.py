@@ -166,7 +166,7 @@ def nth(k: int) -> int:
     """Return the ``k``-th coherence prime, 1-indexed. Scans forward as needed."""
     if k < 1:
         raise ValueError(f"k must be >= 1, got {k}")
-    target = max(_SCANNED_TO * 2, 1_000)
+    target = max(_SCANNED_TO * 2, 100)
     while len(_CACHE) < k:
         _build_up_to(target)
         target *= 4
