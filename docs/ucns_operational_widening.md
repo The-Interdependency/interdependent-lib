@@ -6,7 +6,7 @@ prime-5 generalization all hold (`operational_widening_probe.py`,
 `ternary_widening_probe.py`, `prime5_widening_probe.py`).
 **Scope:** UCNS carrier behavior under ⊠; the operational/analytic widening
 boundary; PCEA's operational requirement; the design constraint on PTCA cores.
-**Date:** this session.
+**Date:** 2026-06-02.
 
 ---
 
