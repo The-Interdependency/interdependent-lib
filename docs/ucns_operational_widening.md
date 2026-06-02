@@ -38,7 +38,7 @@ Carrier widening was treated across multiple sessions as *the* unsolved frontier
 Measurement dissolved most of it:
 
 1. Real closed-class text lives in carriers {8,16,32} at 99.3%
-   (`frequency_probe.py`; the band reproduces in-repo, the exact 99.3% needs the
+   (`frequency_probe.py`; the band reproduces in `The-Interdependency/edcmbone`, the exact 99.3% needs the
    external corpus — see §5.1).
 2. Those are powers of two; the dyadic band is closed under ⊠ — pairwise and
    ternary, with products flowing toward 32 and stopping.
