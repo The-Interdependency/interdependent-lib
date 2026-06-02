@@ -49,6 +49,8 @@ Public API
 """
 from __future__ import annotations
 
+import threading
+
 # === MODULE_BUILD ===
 # id: coherence_primes
 #   module_name: coherence_primes
@@ -58,7 +60,7 @@ from __future__ import annotations
 #   public_surface: is_coherence_prime, sequence_up_to, nth
 #   internal_surface: _build_up_to, _is_prime, _is_squarefree, _prime_factors
 #   auth_boundary: none
-#   storage_boundary: none
+_LOCK = threading.Lock()
 #   network_boundary: none
 #   user_data_boundary: none
 #   admin_only: false
