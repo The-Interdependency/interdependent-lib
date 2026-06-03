@@ -80,9 +80,19 @@ Optional:
 | `api_surface` | API route or RPC surface affected. |
 | `data_schema` | Schema name or shape affected. |
 | `feature_flag` | Flag or config gate. |
-| `requires` | Comma-separated MODULE_BUILD ids this one depends on. |
+| `requires` | Comma-separated MODULE_BUILD ids this one depends on. Use `none` when there are no dependencies. |
 | `since` | Date/version added. |
 | `unresolved` | Comma-separated unresolved items. |
+
+### Empty-value sentinels
+
+`none` is the explicit empty sentinel for any field that would otherwise hold a
+list or value (`public_surface`, `internal_surface`, `requires`, boundary
+fields, …); `hmmm` marks a genuinely unknown value. Runners **must** treat both
+`none` and `hmmm` as non-values — never parse them as ids, surfaces, or
+dependencies. Writing the sentinel explicitly (rather than omitting the line)
+keeps coverage observable: a present-but-empty field is distinguishable from a
+field the author forgot.
 
 ## File plan rule
 
