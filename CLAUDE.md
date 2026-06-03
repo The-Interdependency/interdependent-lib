@@ -48,9 +48,10 @@ interdependent_lib/
 
 libs/                   Per-library documentation stubs (no primary code lives here)
   README.md             Lib index + sync-workflow notes
-  pcea/  ptca/  ucns/   Packaged libs (each has README.md)
-  aimmh/                Packaged five-letter lib
-  pcna/  zfae/          Source-only libs (README.md only)
+  pcea/  ptca/  ucns/   Packaged libs (each has README.md; sync-libs.yml mirrors upstream into <name>/src)
+  aimmh/                Packaged five-letter lib (README.md; sync-libs.yml mirrors into aimmh/src)
+  pcna/                 Source-only lib: README.md + src/ (mirrored upstream core/ sources, present in tree)
+  zfae/                 Source-only lib: README.md only (NOT synced by sync-libs.yml)
 
 tests/                  pytest suite
   test_interdependent_lib.py   Smoke tests for available() and __version__
@@ -60,7 +61,7 @@ tests/                  pytest suite
 docs/                   Operational notes / handoffs (UCNS-related)
 .agents/skills/         Repo-local agent skills (hmmm, meta-module-build, test-build, msdmd)
 .github/workflows/
-  sync-libs.yml         Manual/scheduled workflow to mirror upstream lib sources into libs/*/src
+  sync-libs.yml         Manual + active-cron workflow mirroring a subset of upstream libs into libs/<name>/src (pcea/ptca/ucns/pcna/aimmh; NOT zfae)
 pyproject.toml          Meta-package config — source of truth for metadata + optional extras
 COPILOT.md              Org-wide best practices (Copilot, git, CI, docs, security)
 CONTRIBUTING.md         Contribution guidelines
@@ -120,7 +121,7 @@ twine upload dist/*
   `pyproject.toml`. Installing this package never forces a sub-library to be present.
 - **`available()`** maps each known sub-library (logical name → import name) and
   reports which are importable in the current environment via `importlib.util.find_spec`.
-  The registry includes source-only libs (`pcna` → `core`, `zfae`), so they are
+  The registry includes source-only libs (`pcna` → `core`, `zfae` → `zfae`), so they are
   always present as keys but report `False` unless installed manually.
 - **Coherence-prime canon.** `coherence_primes.py` is the single source of truth
   for the recursive coherence-prime sequence (base `{3,5,7}`, then `p≡1 mod 4`
@@ -129,9 +130,15 @@ twine upload dist/*
   be referenced as canon **without inverting the dependency graph** — leaf libraries
   must *not* import this package; they re-implement the rule to match. The functions
   are re-exported from the package root (`interdependent_lib.is_coherence_prime`, etc.).
-- **lib sync.** `.github/workflows/sync-libs.yml` can mirror upstream sources into
-  `libs/<name>/src` (manual dispatch; weekly schedule is present but effectively
-  opt-in). It excludes each repo's `README.md` so the stubs stay authoritative.
+- **lib sync.** `.github/workflows/sync-libs.yml` mirrors upstream sources into
+  `libs/<name>/src`. It has two triggers: `workflow_dispatch` (manual) and an
+  active `schedule:` cron (`0 3 * * 1` — every Monday 03:00 UTC; the cron line is
+  *not* commented out, so it runs despite the misleading inline "disabled by
+  default" comment). It syncs only a **subset** of libs — `pcea`, `ptca`, `ucns`,
+  `pcna` (from upstream `core/`), and `aimmh` — **not** all `libs/<name>/src`:
+  `zfae` has no sync step and is never mirrored. Each step excludes the upstream
+  `README.md` so the stubs stay authoritative, then commits any changes with
+  `[skip ci]`.
 
 ---
 
@@ -141,8 +148,9 @@ See `COPILOT.md` for comprehensive org-wide conventions. Critical ones:
 
 - **This repo holds no primary lib code.** Changes to library *logic* belong in the
   source repos (PCEA, PTCA, ucns, pcna, ZFAE, aimmh), not here.
-- **License is AGPL-3.0-or-later** (dual-licensed commercial). Note `COPILOT.md` and
-  `CONTRIBUTING.md` still reference "Apache 2.0" in places — `pyproject.toml` and the
+- **License is AGPL-3.0-or-later** (dual-licensed commercial). Note `COPILOT.md`,
+  `CONTRIBUTING.md`, and `interdependent_lib/__init__.py` (`__license__ = "Apache-2.0"`)
+  still reference "Apache 2.0" — these are known-stale; `pyproject.toml` and the
   `LICENSE`/`LICENSE-COMMERCIAL.md` files are authoritative; treat the AGPL/commercial
   dual license as current.
 - **Author contact:** `wayseer@interdependentway.org` for PyPI metadata and git.
