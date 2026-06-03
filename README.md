@@ -18,6 +18,7 @@
 |---------|-----------|---------|-------------|
 | [PCEA](libs/pcea/README.md) | Prime Circular Encryption Algorithm | 4 | Neural architecture state encryption using prime-circular bijective encoding |
 | [PTCA](libs/ptca/README.md) | Prime Tensor Circular Architecture | 4 | Sentinel channels, prime-node tensors, provenance hashing, and exchange mechanics |
+| [PCTA](libs/pcta/README.md) | *(expansion `hmmm`)* | 4 | Seed layer (circles → seeds); repo forthcoming — see the [prime-tensor stack](docs/prime-tensor-stack.md) |
 | [UCNS](libs/ucns/README.md) | Unit Circle Number System | 4 | Recursive factorization theory and witness-matrix depth-2 solver |
 | [PCNA](libs/pcna/README.md) | Prime Circled Neural Architecture | 4 | Modular neural engine with EDCM, PTCA, and zeta-function cores |
 | [ZFAE](libs/zfae/README.md) | Zeta Function Alpha Echo | 4 | Zeta-function harmonic analysis and alpha-echo resonance |
@@ -50,6 +51,21 @@ import interdependent_lib
 
 # Check which sub-libraries are available in this environment
 print(interdependent_lib.available())
+```
+
+---
+
+## The Prime-Tensor Stack
+
+PCNA, PCTA, PTCA and ZFAE form a single compute stack (PCEA is the orthogonal
+guardian). The canonical role-and-boundary map lives in
+**[docs/prime-tensor-stack.md](docs/prime-tensor-stack.md)**:
+
+```
+PCNA (tensors + backprop) ─► weights ┐
+PCTA (circles → seeds) ─┐            ├─► ZFAE (inference) ─► output
+PTCA (seeds → core)  ───┴─► motion ──┘
+PCEA — guardian: seals the weights / state (orthogonal; not a layer)
 ```
 
 ---

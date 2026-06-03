@@ -9,6 +9,20 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+- `docs/prime-tensor-stack.md` — canonical role-and-boundary map for the
+  prime-tensor compute family: PCNA (tensors + back-propagation → weights) →
+  PCTA (circles → seeds) → PTCA (seeds → core) → ZFAE (inference), with PCEA as
+  the orthogonal guardian. Documents the differentiability boundary
+  (back-propagation lives only in PCNA) and marks unsettled specifics `hmmm`.
+- `libs/pcta/` stub for the forthcoming PCTA seed layer (no repo/package yet;
+  documented only, not registered in `_REGISTRY`).
+
+### Notes
+- A `prime-stack` extra bundling `{pcna, pcta, ptca}` is intended but **not**
+  added yet — per repo policy, libraries enter `[project.optional-dependencies]`
+  only after a stable PyPI release (today only `ptca-lib` qualifies).
+
 ---
 
 ## [0.1.1]
