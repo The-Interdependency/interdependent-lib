@@ -33,7 +33,13 @@ Verified against `[project.optional-dependencies]` in `pyproject.toml`.
 | UCNS  | `ucns>=0.8.0`     | `ucns`  | Packaged | Unit Circle Number System |
 | AIMMH | `aimmh-lib>=1.1.0`| `aimmh` | Packaged | AI Multimodel Multimodal Hub (five-letter) |
 | PCNA  | —                 | —       | Source-only (not on PyPI) | Prime Circled Neural Architecture |
+| PCTA  | —                 | —       | No repo yet (documented layer) | Seed layer (circles → seeds); see `docs/prime-tensor-stack.md` |
 | ZFAE  | —                 | —       | Source-only (not on PyPI) | Zeta Function Alpha Echo |
+
+PCNA, PCTA, PTCA and ZFAE form one compute stack (PCEA is the orthogonal
+guardian) — the canonical role-and-boundary map is `docs/prime-tensor-stack.md`.
+PCTA has no repo yet, so unlike PCNA/ZFAE it is **not** in `_REGISTRY`; it is
+documented only.
 
 The `all` extra installs the four packaged libraries together. `dev` installs `pytest>=8.0`, `build`, and `twine`. PCNA and ZFAE appear in `available()` and `libs/` but have no extra until they have stable PyPI releases.
 
@@ -123,6 +129,15 @@ twine upload dist/*
   reports which are importable in the current environment via `importlib.util.find_spec`.
   The registry includes source-only libs (`pcna` → `core`, `zfae` → `zfae`), so they are
   always present as keys but report `False` unless installed manually.
+- **Prime-tensor stack canon.** `docs/prime-tensor-stack.md` is the single source
+  of truth for how PCNA (tensors + back-propagation → weights), PCTA (circles →
+  seeds), PTCA (seeds → core) and ZFAE (inference, consuming PCNA weights +
+  PCTA/PTCA motion) compose, with PCEA as the orthogonal guardian. Like the
+  coherence-prime canon it lives in the aggregator so leaf repos cite it without
+  inverting the dependency graph. Back-propagation lives **only** in PCNA;
+  PCTA/PTCA composition is structural/non-differentiable. Unsettled specifics
+  (acronym expansions, seeds-per-core, the formal definition of "motion") are
+  marked `hmmm` in that doc — do not encode them as fact.
 - **Coherence-prime canon.** `coherence_primes.py` is the single source of truth
   for the recursive coherence-prime sequence (base `{3,5,7}`, then `p≡1 mod 4`
   with a square-free kernel whose factors are all already coherence primes). It is
@@ -203,10 +218,11 @@ the top of `coherence_primes.py`). Unknown fields must be marked `hmmm`, not gue
 
 | Repo | Role |
 |------|------|
-| The-Interdependency/PCEA | PCEA source |
-| The-Interdependency/PTCA | PTCA source |
+| The-Interdependency/PCEA | PCEA source — orthogonal guardian (seals weights/state) |
+| The-Interdependency/PTCA | PTCA source (`ptca-lib`) — stack layer 3 (seeds → core) |
 | The-Interdependency/ucns | UCNS source |
-| The-Interdependency/pcna | PCNA source (core/) |
-| The-Interdependency/ZFAE | ZFAE source |
+| The-Interdependency/pcna | PCNA source (core/) — stack layer 1 (tensors + backprop) |
+| (forthcoming) pcta | PCTA — stack layer 2 (circles → seeds); repo not yet created |
+| The-Interdependency/ZFAE | ZFAE source — inference layer (runtime in a0) |
 | The-Interdependency/aimmh | AIMMH source |
 | The-Interdependency/a0 | Agent platform consuming these libraries |
