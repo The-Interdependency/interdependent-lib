@@ -93,20 +93,30 @@ canonical map; the extra lands when `pcna` and `pcta` publish.
 
 ---
 
-## `hmmm` — unresolved; do not encode as fact
+## Motion — the formal definition (Fick's gradient)
 
-Per org doctrine these are open and must not be guessed:
+**"Motion" is the Fickian flux of a layer's composed-tensor field across the
+compose boundary** — Fick's first law of diffusion:
 
-- **Formal definition of "motion"** (the structural output the PCTA seed
-  transformer and PTCA core transformer hand to ZFAE, vs PCNA's learned
-  weights): `hmmm` — described by role here, as "phase-harmonic propagation +
-  auditing", not formalized.
+```
+J = −D ∇φ
+```
 
-> **Resolved 2026-06-05 (maintainer).** The acronym expansions, the
-> variable-count rule, the per-layer flow, and PCTA's home (its own repo) are no
-> longer `hmmm` — they are the canon recorded above. Earlier revisions of this
-> file (and several leaf repos) listed conflicting expansions and fixed
-> per-layer counts; those are superseded.
+where `φ` is the layer's field (the composed-tensor state), `∇φ` its gradient,
+`D` the diffusivity, and `J` the flux. The structural / **phase-harmonic
+propagation** each layer hands upward *is* this flux: structure diffuses down its
+gradient. Each compose step (circles → seeds → cores) emits its `J`; **ZFAE**
+reads the accumulated motion as phase-harmonic propagation + auditing, alongside
+PCNA's learned weights. Motion carries no gradient of its own (it is structural,
+not back-propagated) — the `∇φ` here is the spatial field gradient that drives
+diffusion, not an autodiff gradient.
+
+> **Status: resolved (maintainer).** This was the last open `hmmm` in the stack.
+> The acronym expansions, the variable-count rule, the per-layer flow, PCTA's
+> home (its own repo), and now the **formal definition of "motion" (Fick's
+> gradient)** are all canon. **No stack-level `hmmm` remains.** Earlier revisions
+> of this file (and several leaf repos) listed conflicting expansions, fixed
+> per-layer counts, and an unformalized "motion"; those are superseded.
 
 ---
 

@@ -140,9 +140,10 @@ twine upload dist/*
   dependency graph. Back-propagation lives **only** in PCNA; PCTA/PTCA
   composition is structural/non-differentiable. **Composition counts are
   variable** — the only invariant is that every circle/seed/core is itself a
-  tensor. The acronym expansions, the variable-count rule, and the flow were
-  resolved by the maintainer (2026-06-05); the **formal definition of "motion"**
-  remains `hmmm` — do not encode it as fact.
+  tensor. The acronym expansions, the variable-count rule, the flow, and the
+  **formal definition of "motion"** — the Fickian gradient flux `J = −D ∇φ`
+  (Fick's first law; structure diffusing down its field gradient) — were all
+  resolved by the maintainer; **no stack-level `hmmm` remains**.
 - **Coherence-prime canon.** `coherence_primes.py` is the single source of truth
   for the recursive coherence-prime sequence (base `{3,5,7}`, then `p≡1 mod 4`
   with a square-free kernel whose factors are all already coherence primes). It is
