@@ -7,7 +7,8 @@ PTCA (layer 3: seeds → core), and its structural output ("motion") feeds, via
 PTCA cores, into ZFAE's inference. Composition counts are **variable** — the only
 invariant is that every circle and seed is itself a tensor.
 
-**Status:** PCTA now has its own repository (`The-Interdependency/pcta`) but is
+**Status:** PCTA now has its own repository
+([The-Interdependency/pcta](https://github.com/The-Interdependency/pcta)) but is
 **not** yet on PyPI. It is **not** registered in `interdependent_lib._REGISTRY`
 and has **no** extra until a stable release ships.
 

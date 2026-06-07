@@ -4,10 +4,10 @@ This directory contains per-library documentation and stub folders for each acro
 
 | Folder | Package | PyPI name | Description |
 |--------|---------|-----------|-------------|
-| [pcna/](pcna/README.md) | `pcna` | *(source-only)* | Prime Circled Neural Architecture — modular neural engine |
-| [pcea/](pcea/README.md) | `pcea` | `pcea` | Prime Circular Encryption Algorithm |
-| [ptca/](ptca/README.md) | `ptca` | `ptca-lib` | Prime Tensor Circular Architecture — seeds → core (stack layer 3) |
-| [pcta/](pcta/README.md) | *(forthcoming)* | *(no repo yet)* | PCTA — circles → seeds (stack layer 2); see [prime-tensor stack](../docs/prime-tensor-stack.md) |
+| [pcna/](pcna/README.md) | `pcna` | *(source-only)* | Prime Circle Neural Architecture — tensors → circles (stack layer 1, backprop → weights) |
+| [pcea/](pcea/README.md) | `pcea` | `pcea` | Prime Circular Encryption Algorithm — guardian ("last state as key" at every layer) |
+| [ptca/](ptca/README.md) | `ptca` | `ptca-lib` | Prime Tensor Core Architecture — seeds → core (stack layer 3) |
+| [pcta/](pcta/README.md) | `pcta` | *(not yet on PyPI)* | Prime Circled Tensor Architecture — circles → seeds (stack layer 2); see [prime-tensor stack](../docs/prime-tensor-stack.md) |
 | [ucns/](ucns/README.md) | `ucns` | `ucns` | Unit Circle Number System |
 | [zfae/](zfae/README.md) | `zfae` | *(source-only)* | Zeta Function Alpha Echo |
 | [aimmh/](aimmh/README.md) | `aimmh_lib` | `aimmh-lib` | AI Multimodel Multimodal Hub |

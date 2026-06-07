@@ -93,7 +93,7 @@ canonical map; the extra lands when `pcna` and `pcta` publish.
 
 ---
 
-## Motion — the formal definition (Fick's gradient)
+## Motion — the formal definition (Fickian flux)
 
 **"Motion" is the Fickian flux of a layer's composed-tensor field across the
 compose boundary** — Fick's first law of diffusion:
@@ -113,8 +113,8 @@ diffusion, not an autodiff gradient.
 
 > **Status: resolved (maintainer).** This was the last open `hmmm` in the stack.
 > The acronym expansions, the variable-count rule, the per-layer flow, PCTA's
-> home (its own repo), and now the **formal definition of "motion" (Fick's
-> gradient)** are all canon. **No stack-level `hmmm` remains.** Earlier revisions
+> home (its own repo), and now the **formal definition of "motion" (the Fickian
+> flux above)** are all canon. **No stack-level `hmmm` remains.** Earlier revisions
 > of this file (and several leaf repos) listed conflicting expansions, fixed
 > per-layer counts, and an unformalized "motion"; those are superseded.
 
