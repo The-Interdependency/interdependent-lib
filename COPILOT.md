@@ -50,7 +50,7 @@
 | File | Purpose |
 |------|---------|
 | `README.md` | What it is, how to install, quick-start example |
-| `LICENSE` | Legal clarity (Apache 2.0 preferred here) |
+| `LICENSE` | Legal clarity (AGPL-3.0-or-later + commercial, dual-licensed) |
 | `.gitignore` | Keep build artifacts and secrets out of history |
 | `CHANGELOG.md` | Auditable version history |
 | `CONTRIBUTING.md` | Lower the barrier for collaborators |
@@ -307,7 +307,7 @@ Triaging issues, writing docs, answering questions, and reviewing PRs are as val
 
 | Convention | Rationale |
 |------------|-----------|
-| Apache 2.0 license on all library code | Permissive, patent-explicit, consistent across org |
+| AGPL-3.0-or-later (+ commercial) on all library code | Strong copyleft with a commercial option, consistent across org |
 | `wayseer@interdependentway.org` as author contact | Consistent identity for PyPI and git metadata |
 | `requires-python = ">=3.9"` minimum (3.11 for async libs) | Balances modern syntax with broad deployability |
 | Zero runtime dependencies in core libs | Maximises portability; optional extras for backend integrations |

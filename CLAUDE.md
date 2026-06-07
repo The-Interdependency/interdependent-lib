@@ -169,11 +169,11 @@ See `COPILOT.md` for comprehensive org-wide conventions. Critical ones:
 
 - **This repo holds no primary lib code.** Changes to library *logic* belong in the
   source repos (PCEA, PTCA, ucns, pcna, ZFAE, aimmh), not here.
-- **License is AGPL-3.0-or-later** (dual-licensed commercial). Note `COPILOT.md`,
-  `CONTRIBUTING.md`, and `interdependent_lib/__init__.py` (`__license__ = "Apache-2.0"`)
-  still reference "Apache 2.0" — these are known-stale; `pyproject.toml` and the
-  `LICENSE`/`LICENSE-COMMERCIAL.md` files are authoritative; treat the AGPL/commercial
-  dual license as current.
+- **License is AGPL-3.0-or-later** (dual-licensed commercial), consistent across
+  `pyproject.toml`, `LICENSE` (now full verbatim AGPL text), `LICENSE-COMMERCIAL.md`,
+  `interdependent_lib/__init__.py` (`__license__`), `COPILOT.md`, and
+  `CONTRIBUTING.md`. (The earlier Apache-2.0 references in those last three were
+  reconciled to AGPL.)
 - **Author contact:** `wayseer@interdependentway.org` for PyPI metadata and git.
 - **`requires-python = ">=3.9"`** for this meta-package and the four-letter libs.
 - **Zero runtime dependencies** in `interdependent_lib/` itself — it declares only
