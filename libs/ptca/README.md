@@ -1,4 +1,4 @@
-# PTCA — Prime Tensor Circular Architecture
+# PTCA — Prime Tensor Core Architecture
 
 **Source repo:** [The-Interdependency/PTCA](https://github.com/The-Interdependency/PTCA)
 **Language:** Python 3.9+  **PyPI:** [`ptca-lib`](https://pypi.org/project/ptca-lib/)

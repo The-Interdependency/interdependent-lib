@@ -1,4 +1,4 @@
-# PCNA — Prime Circled Neural Architecture
+# PCNA — Prime Circle Neural Architecture
 
 **Source repo:** [The-Interdependency/pcna](https://github.com/The-Interdependency/pcna)
 **Language:** Python 3.9+

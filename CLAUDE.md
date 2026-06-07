@@ -28,18 +28,18 @@ Verified against `[project.optional-dependencies]` in `pyproject.toml`.
 
 | Acronym | PyPI / requirement | Extra | Status | Description |
 |---------|--------------------|-------|--------|-------------|
-| PCEA  | `pcea>=0.1.0`     | `pcea`  | Packaged | Prime Circular Encryption Algorithm |
-| PTCA  | `ptca-lib>=0.1.0` | `ptca`  | Packaged | Prime Tensor Circular Architecture |
+| PCEA  | `pcea>=0.1.0`     | `pcea`  | Packaged | Prime Circular Encryption Algorithm (guardian — "last state as key" at every layer) |
+| PTCA  | `ptca-lib>=0.1.0` | `ptca`  | Packaged | Prime Tensor Core Architecture (stack layer 3: seeds → core; `ptca-lib` ships the sentinel-channel tensor system, the seeds→core role is `prime_core`) |
 | UCNS  | `ucns>=0.8.0`     | `ucns`  | Packaged | Unit Circle Number System |
 | AIMMH | `aimmh-lib>=1.1.0`| `aimmh` | Packaged | AI Multimodel Multimodal Hub (five-letter) |
-| PCNA  | —                 | —       | Source-only (not on PyPI) | Prime Circled Neural Architecture |
-| PCTA  | —                 | —       | No repo yet (documented layer) | Seed layer (circles → seeds); see `docs/prime-tensor-stack.md` |
-| ZFAE  | —                 | —       | Source-only (not on PyPI) | Zeta Function Alpha Echo |
+| PCNA  | —                 | —       | Source-only (not on PyPI) | Prime Circle Neural Architecture (stack layer 1: tensors → circles, backprop) |
+| PCTA  | —                 | —       | Repo created; not yet on PyPI | Prime Circled Tensor Architecture (stack layer 2: circles → seeds); see `docs/prime-tensor-stack.md` |
+| ZFAE  | —                 | —       | Source-only (not on PyPI) | Zeta Function Alpha Echo (inference engine) |
 
 PCNA, PCTA, PTCA and ZFAE form one compute stack (PCEA is the orthogonal
 guardian) — the canonical role-and-boundary map is `docs/prime-tensor-stack.md`.
-PCTA has no repo yet, so unlike PCNA/ZFAE it is **not** in `_REGISTRY`; it is
-documented only.
+PCTA now has a repo (`The-Interdependency/pcta`) but is not yet published; unlike
+PCNA/ZFAE it is **not** in `_REGISTRY` and has no extra until it ships to PyPI.
 
 The `all` extra installs the four packaged libraries together. `dev` installs `pytest>=8.0`, `build`, and `twine`. PCNA and ZFAE appear in `available()` and `libs/` but have no extra until they have stable PyPI releases.
 
@@ -130,14 +130,20 @@ twine upload dist/*
   The registry includes source-only libs (`pcna` → `core`, `zfae` → `zfae`), so they are
   always present as keys but report `False` unless installed manually.
 - **Prime-tensor stack canon.** `docs/prime-tensor-stack.md` is the single source
-  of truth for how PCNA (tensors + back-propagation → weights), PCTA (circles →
-  seeds), PTCA (seeds → core) and ZFAE (inference, consuming PCNA weights +
-  PCTA/PTCA motion) compose, with PCEA as the orthogonal guardian. Like the
-  coherence-prime canon it lives in the aggregator so leaf repos cite it without
-  inverting the dependency graph. Back-propagation lives **only** in PCNA;
-  PCTA/PTCA composition is structural/non-differentiable. Unsettled specifics
-  (acronym expansions, seeds-per-core, the formal definition of "motion") are
-  marked `hmmm` in that doc — do not encode them as fact.
+  of truth for how PCNA (Prime Circle Neural Architecture; tensors → circles,
+  back-propagation → weights), PCTA (Prime Circled Tensor Architecture; circles →
+  seeds), PTCA (Prime Tensor Core Architecture; seeds → core) and ZFAE (Zeta
+  Function Alpha Echo; inference, using PCNA weights + circles / seeds / cores as
+  phase-harmonic propagation + auditing) compose, with PCEA as the orthogonal
+  guardian ("last state as key" at every layer). Like the coherence-prime canon
+  it lives in the aggregator so leaf repos cite it without inverting the
+  dependency graph. Back-propagation lives **only** in PCNA; PCTA/PTCA
+  composition is structural/non-differentiable. **Composition counts are
+  variable** — the only invariant is that every circle/seed/core is itself a
+  tensor. The acronym expansions, the variable-count rule, the flow, and the
+  **formal definition of "motion"** — the Fickian gradient flux `J = −D ∇φ`
+  (Fick's first law; structure diffusing down its field gradient) — were all
+  resolved by the maintainer; **no stack-level `hmmm` remains**.
 - **Coherence-prime canon.** `coherence_primes.py` is the single source of truth
   for the recursive coherence-prime sequence (base `{3,5,7}`, then `p≡1 mod 4`
   with a square-free kernel whose factors are all already coherence primes). It is
@@ -219,10 +225,10 @@ the top of `coherence_primes.py`). Unknown fields must be marked `hmmm`, not gue
 | Repo | Role |
 |------|------|
 | The-Interdependency/PCEA | PCEA source — orthogonal guardian (seals weights/state) |
-| The-Interdependency/PTCA | PTCA source (`ptca-lib`) — stack layer 3 (seeds → core) |
+| The-Interdependency/PTCA | PTCA source (`ptca-lib`) — Prime Tensor Core Architecture, stack layer 3 (seeds → core) |
 | The-Interdependency/ucns | UCNS source |
-| The-Interdependency/pcna | PCNA source (core/) — stack layer 1 (tensors + backprop) |
-| (forthcoming) pcta | PCTA — stack layer 2 (circles → seeds); repo not yet created |
+| The-Interdependency/pcna | PCNA source (core/) — Prime Circle Neural Architecture, stack layer 1 (tensors → circles, backprop) |
+| The-Interdependency/pcta | PCTA — Prime Circled Tensor Architecture, stack layer 2 (circles → seeds) |
 | The-Interdependency/ZFAE | ZFAE source — inference layer (runtime in a0) |
 | The-Interdependency/aimmh | AIMMH source |
 | The-Interdependency/a0 | Agent platform consuming these libraries |
