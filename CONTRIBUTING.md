@@ -57,4 +57,4 @@ pytest
 
 ## License
 
-By contributing you agree that your contributions will be licensed under the project's AGPL-3.0-or-later license (dual-licensed with a separate commercial option).
+By contributing you agree that your contributions will be licensed under the project's MIT license.
