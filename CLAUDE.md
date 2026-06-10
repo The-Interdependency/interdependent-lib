@@ -16,9 +16,7 @@ This repo holds **no primary sub-library code** — each acronym library lives i
 - Org-wide best-practice documentation in `COPILOT.md`
 
 **Python requirement:** ≥ 3.9
-**License:** AGPL-3.0-or-later, dual-licensed with a separate commercial option (see `LICENSE` and `LICENSE-COMMERCIAL.md`)
-
-> Note: `LICENSE` is currently an interim notice — the full verbatim AGPL-3.0 text still has to be pasted in before any merge/public release.
+**License:** MIT (see `LICENSE`). Previously AGPL-3.0-or-later + commercial; relicensed to MIT for frictionless adoption.
 
 ---
 
@@ -73,8 +71,7 @@ COPILOT.md              Org-wide best practices (Copilot, git, CI, docs, securit
 CONTRIBUTING.md         Contribution guidelines
 CHANGELOG.md            Version history
 README.md
-LICENSE                 AGPL-3.0-or-later (interim notice)
-LICENSE-COMMERCIAL.md   Commercial-license option
+LICENSE                 MIT
 ```
 
 ---
@@ -169,11 +166,9 @@ See `COPILOT.md` for comprehensive org-wide conventions. Critical ones:
 
 - **This repo holds no primary lib code.** Changes to library *logic* belong in the
   source repos (PCEA, PTCA, ucns, pcna, ZFAE, aimmh), not here.
-- **License is AGPL-3.0-or-later** (dual-licensed commercial), consistent across
-  `pyproject.toml`, `LICENSE` (now full verbatim AGPL text), `LICENSE-COMMERCIAL.md`,
+- **License is MIT**, consistent across `pyproject.toml`, `LICENSE`,
   `interdependent_lib/__init__.py` (`__license__`), `COPILOT.md`, and
-  `CONTRIBUTING.md`. (The earlier Apache-2.0 references in those last three were
-  reconciled to AGPL.)
+  `CONTRIBUTING.md`. (Previously AGPL-3.0-or-later + commercial; relicensed to MIT.)
 - **Author contact:** `wayseer@interdependentway.org` for PyPI metadata and git.
 - **`requires-python = ">=3.9"`** for this meta-package and the four-letter libs.
 - **Zero runtime dependencies** in `interdependent_lib/` itself — it declares only

@@ -18,7 +18,7 @@ from __future__ import annotations
 __version__ = "0.1.1"
 __author__ = "Erin Patrick Spencer"
 __email__ = "wayseer@interdependentway.org"
-__license__ = "AGPL-3.0-or-later"
+__license__ = "MIT"
 
 # Canonical, dependency-free primitives that belong to no single sub-library.
 # The coherence-prime sequence is foundational to UCNS / PCNA / PTCA, so its
