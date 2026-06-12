@@ -57,4 +57,4 @@ pytest
 
 ## License
 
-By contributing you agree that your contributions will be licensed under the project's MIT license.
+By contributing you agree that your contributions will be licensed under the project's MPL-2.0 (Mozilla Public License 2.0) license. (Relicensed from MIT to MPL-2.0.)

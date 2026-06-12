@@ -2,7 +2,7 @@
 
 > A unified PyPI meta-package that brings together the four-letter and five-letter acronym libraries of [The Interdependency](https://github.com/The-Interdependency) into a single, installable collection.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: MPL-2.0](https://img.shields.io/badge/License-MPL--2.0-blue.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![The Interdependency](https://img.shields.io/badge/org-The--Interdependency-blueviolet)](https://github.com/The-Interdependency)
 
@@ -117,8 +117,9 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Previously AGPL-3.0-or-later with a commercial
-option; relicensed to MIT for frictionless adoption.
+MPL-2.0 (Mozilla Public License 2.0) — see [LICENSE](LICENSE). Relicensed from
+MIT to MPL-2.0 — weak copyleft: embed anywhere, but changes to these files must
+be published. (Earlier history: AGPL-3.0-or-later + commercial, then MIT.)
 
 ## Author
 
