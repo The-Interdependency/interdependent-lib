@@ -16,7 +16,7 @@ This repo holds **no primary sub-library code** — each acronym library lives i
 - Org-wide best-practice documentation in `COPILOT.md`
 
 **Python requirement:** ≥ 3.9
-**License:** MIT (see `LICENSE`). Previously AGPL-3.0-or-later + commercial; relicensed to MIT for frictionless adoption.
+**License:** MPL-2.0 (see `LICENSE`). Relicensed from MIT to MPL-2.0 — weak copyleft: embed anywhere, but changes to these files must be published. (Earlier history: AGPL-3.0-or-later + commercial, then MIT.)
 
 ---
 
@@ -71,7 +71,7 @@ COPILOT.md              Org-wide best practices (Copilot, git, CI, docs, securit
 CONTRIBUTING.md         Contribution guidelines
 CHANGELOG.md            Version history
 README.md
-LICENSE                 MIT
+LICENSE                 MPL-2.0
 ```
 
 ---
@@ -166,9 +166,11 @@ See `COPILOT.md` for comprehensive org-wide conventions. Critical ones:
 
 - **This repo holds no primary lib code.** Changes to library *logic* belong in the
   source repos (PCEA, PTCA, ucns, pcna, ZFAE, aimmh), not here.
-- **License is MIT**, consistent across `pyproject.toml`, `LICENSE`,
+- **License is MPL-2.0**, consistent across `pyproject.toml`, `LICENSE`,
   `interdependent_lib/__init__.py` (`__license__`), `COPILOT.md`, and
-  `CONTRIBUTING.md`. (Previously AGPL-3.0-or-later + commercial; relicensed to MIT.)
+  `CONTRIBUTING.md`. Relicensed from MIT to MPL-2.0 — weak copyleft: embed
+  anywhere, but changes to these files must be published. (Earlier history:
+  AGPL-3.0-or-later + commercial, then MIT.)
 - **Author contact:** `wayseer@interdependentway.org` for PyPI metadata and git.
 - **`requires-python = ">=3.9"`** for this meta-package and the four-letter libs.
 - **Zero runtime dependencies** in `interdependent_lib/` itself — it declares only
