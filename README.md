@@ -19,7 +19,7 @@
 | [PCEA](libs/pcea/README.md) | Prime Circular Encryption Algorithm | 4 | Neural architecture state encryption ("last state as key") at every layer |
 | [PTCA](libs/ptca/README.md) | Prime Tensor Core Architecture | 4 | Stack layer 3 — seeds → core. (`ptca-lib` ships the sentinel-channel / prime-node tensor system; the seeds→core role is `prime_core`.) |
 | [PCTA](libs/pcta/README.md) | Prime Circled Tensor Architecture | 4 | Stack layer 2 — composes UCNS-carried circles → seeds |
-| [UCNS](libs/ucns/README.md) | Unit Circle Number System | 4 | Recursive factorization theory and witness-matrix depth-2 solver |
+| [UCNS](libs/ucns/README.md) | Unit Circle Number System | 4 | Recursive factorization theory, witness-matrix quotient solver, A0-safe factorization envelopes, and Mathlib-backed formal scaffold upstream |
 | [PCNA](libs/pcna/README.md) | Prime Circle Neural Architecture | 4 | Stack layer 1 — tensors → circles in a back-propagating NN → weights |
 | [ZFAE](libs/zfae/README.md) | Zeta Function Alpha Echo | 4 | Inference engine — pcna weights + circles / seeds / cores as phase-harmonic propagation |
 | [AIMMH](libs/aimmh/README.md) | AI Multimodel Multimodal Hub | 5 | Zero-dependency async multi-model conversation orchestration |
@@ -29,13 +29,13 @@
 ## Installation
 
 ```bash
-# Install the meta-package (all sub-libraries)
+# Install the meta-package (base package only; extras install sub-libraries)
 pip install interdependent-lib
 
 # Install only specific libraries
 pip install interdependent-lib[pcea]
 pip install interdependent-lib[ptca]
-pip install interdependent-lib[ucns]
+pip install interdependent-lib[ucns]   # ucns>=0.9.1
 pip install interdependent-lib[aimmh]
 
 # Install everything
