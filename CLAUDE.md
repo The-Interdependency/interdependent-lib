@@ -6,7 +6,7 @@ This file gives AI assistants context needed to work effectively in this reposit
 
 ## What This Repo Is
 
-`interdependent-lib` (pip package: **`interdependent-lib`**, v0.1.1) is a **unified PyPI meta-package** that bundles the four-letter and five-letter acronym libraries of [The Interdependency](https://github.com/The-Interdependency) into a single installable collection.
+`interdependent-lib` (pip package: **`interdependent-lib`**, v0.1.2) is a **unified PyPI meta-package** that bundles the four-letter and five-letter acronym libraries of [The Interdependency](https://github.com/The-Interdependency) into a single installable collection.
 
 This repo holds **no primary sub-library code** — each acronym library lives in its own source repo. What this repo *does* provide:
 - The `interdependent_lib` top-level package, which exposes:
@@ -28,7 +28,7 @@ Verified against `[project.optional-dependencies]` in `pyproject.toml`.
 |---------|--------------------|-------|--------|-------------|
 | PCEA  | `pcea>=0.1.0`     | `pcea`  | Packaged | Prime Circular Encryption Algorithm (guardian — "last state as key" at every layer) |
 | PTCA  | `ptca-lib>=0.1.0` | `ptca`  | Packaged | Prime Tensor Core Architecture (stack layer 3: seeds → core; `ptca-lib` ships the sentinel-channel tensor system, the seeds→core role is `prime_core`) |
-| UCNS  | `ucns>=0.8.0`     | `ucns`  | Packaged | Unit Circle Number System |
+| UCNS  | `ucns>=0.9.1`     | `ucns`  | Packaged | Unit Circle Number System; Python runtime stdlib-only; upstream formal scaffold is Mathlib-backed |
 | AIMMH | `aimmh-lib>=1.1.0`| `aimmh` | Packaged | AI Multimodel Multimodal Hub (five-letter) |
 | PCNA  | —                 | —       | Source-only (not on PyPI) | Prime Circle Neural Architecture (stack layer 1: tensors → circles, backprop) |
 | PCTA  | —                 | —       | Repo created; not yet on PyPI | Prime Circled Tensor Architecture (stack layer 2: circles → seeds); see `docs/prime-tensor-stack.md` |
@@ -122,6 +122,9 @@ twine upload dist/*
 - **Meta-package model.** The repo is an aggregator. Sub-library code is owned by
   the individual source repos; here they are wired in only as optional extras in
   `pyproject.toml`. Installing this package never forces a sub-library to be present.
+- **UCNS boundary.** `interdependent-lib[ucns]` now requires `ucns>=0.9.1`. The
+  `ucns` Python runtime remains stdlib-only; the upstream `ucns/formal` layer is
+  Lean/Mathlib-backed and is not a Python runtime dependency.
 - **`available()`** maps each known sub-library (logical name → import name) and
   reports which are importable in the current environment via `importlib.util.find_spec`.
   The registry includes source-only libs (`pcna` → `core`, `zfae` → `zfae`), so they are
@@ -157,75 +160,3 @@ twine upload dist/*
   `zfae` has no sync step and is never mirrored. Each step excludes the upstream
   `README.md` so the stubs stay authoritative, then commits any changes with
   `[skip ci]`.
-
----
-
-## Conventions & Gotchas
-
-See `COPILOT.md` for comprehensive org-wide conventions. Critical ones:
-
-- **This repo holds no primary lib code.** Changes to library *logic* belong in the
-  source repos (PCEA, PTCA, ucns, pcna, ZFAE, aimmh), not here.
-- **License is MPL-2.0**, consistent across `pyproject.toml`, `LICENSE`,
-  `interdependent_lib/__init__.py` (`__license__`), `COPILOT.md`, and
-  `CONTRIBUTING.md`. Relicensed from MIT to MPL-2.0 — weak copyleft: embed
-  anywhere, but changes to these files must be published. (Earlier history:
-  AGPL-3.0-or-later + commercial, then MIT.)
-- **Author contact:** `wayseer@interdependentway.org` for PyPI metadata and git.
-- **`requires-python = ">=3.9"`** for this meta-package and the four-letter libs.
-- **Zero runtime dependencies** in `interdependent_lib/` itself — it declares only
-  optional extras. Keep `coherence_primes.py` and the package core dependency-free.
-- **Semantic versioning** (`MAJOR.MINOR.PATCH`). Keep `__version__` in
-  `interdependent_lib/__init__.py` in sync with `version` in `pyproject.toml`
-  (both currently `0.1.1`).
-- **Commit style:** Conventional Commits (`feat(ucns):`, `chore(deps):`, `docs:`).
-
-### Adding a New Sub-Library
-
-1. Add it to `[project.optional-dependencies]` in `pyproject.toml` (and to `all`)
-   once it has a stable PyPI release.
-2. Add a `libs/<name>/README.md` stub and a row to `libs/README.md`.
-3. Add it to `_REGISTRY` in `interdependent_lib/__init__.py` (and update the
-   `test_available_returns_dict` key list in `tests/`).
-4. Add an entry to `CHANGELOG.md`.
-5. Update the tables in `README.md` and this file.
-
-> **Do not** add PCNA or ZFAE to `[project.optional-dependencies]` until they have
-> stable PyPI releases. They stay source-only (registry keys + `libs/` stubs).
-
----
-
-## Agent module-build doctrine
-
-Before adding a new module, route, service, adapter, schema, worker, engine,
-UI panel, migration, or experiment, read:
-
-`./.agents/skills/meta-module-build/SKILL.md`
-
-New module work should start with a `MODULE_BUILD` block (see the example block at
-the top of `coherence_primes.py`). Unknown fields must be marked `hmmm`, not guessed
-— see `./.agents/skills/hmmm/SKILL.md`.
-
----
-
-## Git Workflow
-
-- Main branch: `main`
-- Feature branches: `feat/<description>`, `fix/<description>`, `chore/<description>`, `docs/<description>`
-- Commit style: Conventional Commits (see `COPILOT.md`)
-- Author: Erin Patrick Spencer (wayseer@interdependentway.org)
-
----
-
-## Related Repos
-
-| Repo | Role |
-|------|------|
-| The-Interdependency/PCEA | PCEA source — orthogonal guardian (seals weights/state) |
-| The-Interdependency/PTCA | PTCA source (`ptca-lib`) — Prime Tensor Core Architecture, stack layer 3 (seeds → core) |
-| The-Interdependency/ucns | UCNS source |
-| The-Interdependency/pcna | PCNA source (core/) — Prime Circle Neural Architecture, stack layer 1 (tensors → circles, backprop) |
-| The-Interdependency/pcta | PCTA — Prime Circled Tensor Architecture, stack layer 2 (circles → seeds) |
-| The-Interdependency/ZFAE | ZFAE source — inference layer (runtime in a0) |
-| The-Interdependency/aimmh | AIMMH source |
-| The-Interdependency/a0 | Agent platform consuming these libraries |
