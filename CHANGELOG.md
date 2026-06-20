@@ -25,6 +25,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [0.1.2]
+
+### Changed
+- Raised the UCNS optional dependency floor from `ucns>=0.8.0` to `ucns>=0.9.1`
+  for both the `ucns` extra and the `all` extra.
+- Updated the UCNS documentation stub to reflect the current split between the
+  stdlib-only Python runtime package and the Mathlib-backed Lean formal scaffold
+  in the upstream `ucns` source repo.
+
+---
+
 ## [0.1.1]
 
 ### Fixed
