@@ -1,29 +1,44 @@
 # UCNS — Unit Circle Number System
 
-**Source repo:** [The-Interdependency/ucns](https://github.com/The-Interdependency/ucns)
-**Language:** Python 3.8+  **PyPI:** [`ucns`](https://pypi.org/project/ucns/)
+**Source repo:** [The-Interdependency/ucns](https://github.com/The-Interdependency/ucns)  
+**Language:** Python 3.8+  **PyPI:** [`ucns`](https://pypi.org/project/ucns/)  
+**Meta-package extra:** `interdependent-lib[ucns]` requires `ucns>=0.9.1`  
 **Letters:** 4
 
 ---
 
 ## What it is
 
-UCNS is a pure-Python, zero-dependency library that models numbers as positions on a Möbius disk with recursive epicycles. It provides:
+UCNS is the Unit Circle Number System library. The Python runtime package is
+stdlib-only and provides recursive UCNS objects, canonical multiplication,
+serialization, A0-safe factorization envelopes, and the `factor_search_v08`
+witness-matrix recursive quotient solver.
 
-- **Möbius disk representation** — numbers as points in hyperbolic (unit-disk) geometry
-- **Epicycle decomposition** — recursive harmonic factorization
-- **Witness-matrix solver** — depth-2 solver for prime factorization witnesses
-- **Embedding utilities** — map integers into UCNS geometric space
-- **Similarity measures** — cosine and hyperbolic distance between UCNS vectors
+The upstream source repo also carries the formal Lean scaffold for Theorem N.
+That formal layer now depends on Mathlib in `formal/lakefile.lean`; Mathlib is a
+Lean/formalization dependency, not a Python runtime dependency of `ucns`.
+
+UCNS currently provides:
+
+- **Recursive UCNS object algebra** — `UCNSObject`, `multiply`, unit predicates,
+  canonical JSON, and stable hashing.
+- **Witness-matrix factor search** — `factor_search_v08`, including the repaired
+  right-singleton split boundary `p=n, q=1`.
+- **Scoped factorization results** — A0-facing envelopes that prevent raw
+  `SEQ-PRIME` from being overclaimed outside defended-complete domains.
+- **Lineage geometry modules** — unit-circle, Möbius, epicycle, embedding, and
+  similarity utilities available by submodule path.
+- **Formal frontier scaffold** — Lean 4 statements for Theorem N and related
+  claims, still `sorry`-backed until proof discharge.
 
 ---
 
 ## Install
 
 ```bash
-pip install ucns
+pip install ucns>=0.9.1
 # or via the meta-package
-pip install interdependent-lib[ucns]
+pip install "interdependent-lib[ucns]"
 ```
 
 ---
@@ -31,41 +46,47 @@ pip install interdependent-lib[ucns]
 ## Usage
 
 ```python
-from ucns import UnitCircle, MobiusDisk, Epicycle
+from fractions import Fraction
+from ucns import UCNSObject, multiply, factor_search_v08
 
-# Represent a number as a unit-circle point
-uc = UnitCircle(value=42)
-print(uc.angle)   # phase angle on the unit circle
+UNIT = None
 
-# Möbius disk projection
-disk = MobiusDisk()
-z = disk.embed(42)       # complex coordinate in the open unit disk
+s2 = UCNSObject(
+    2,
+    2,
+    [(Fraction(0), UNIT), (Fraction(1), UNIT)],
+    [0, 0],
+)
 
-# Epicycle decomposition
-epi = Epicycle(depth=3)
-harmonics = epi.decompose(42)
+product = multiply(s2, s2)
+result = factor_search_v08(product)
+```
+
+For lineage geometry modules, import by submodule path:
+
+```python
+from ucns import core, embedding, epicycle, mobius, similarity
 ```
 
 ---
 
 ## Package layout
 
-| File | Purpose |
+| Area | Purpose |
 |------|---------|
-| `ucns/__init__.py` | Public API |
-| `ucns/core.py` | `UnitCircle` and core number system |
-| `ucns/mobius.py` | Möbius disk (hyperbolic plane) |
-| `ucns/epicycle.py` | Recursive epicycle decomposition |
-| `ucns/embedding.py` | Integer-to-UCNS embedding |
-| `ucns/similarity.py` | Distance and similarity measures |
+| `ucns/` | Public Python API and lineage geometry modules |
+| `ucns_recursive/` | Engine implementation re-exported by `ucns` |
+| `formal/` | Lean 4 scaffold; Mathlib-backed; not yet formal verification while `sorry` remains |
+| `docs/` | Specs, glossary, claim boundaries, reproducibility notes |
 
 ---
 
 ## Specification documents
 
+- [UCNS README →](https://github.com/The-Interdependency/ucns/blob/main/README.md)
 - [UCNS Spec →](https://github.com/The-Interdependency/ucns/blob/main/ucns-spec.md)
-- [Completeness Proof →](https://github.com/The-Interdependency/ucns/blob/main/ucns-v06-completeness-proof.md)
-- [Depth-7 Frontier →](https://github.com/The-Interdependency/ucns/blob/main/depth7-frontier.md)
+- [Theorem N →](https://github.com/The-Interdependency/ucns/blob/main/ucns-theorem-n.md)
+- [Formal scaffold →](https://github.com/The-Interdependency/ucns/tree/main/formal)
 
 ---
 
