@@ -25,6 +25,21 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [0.1.3]
+
+### Fixed
+- Prevented `available()["pcna"]` from false-positiving against an unrelated
+  installed module named `core`. PCNA remains a registry key, but reports `False`
+  until it has a stable, package-unique import target.
+
+### Added
+- Added drift-guard tests for package version consistency, UCNS dependency floor,
+  README floor mention, and source-only registry behavior.
+- Added `docs/dependency-policy.md` to preserve the base-package, extras,
+  source-only registry, leaf-library, and runtime-vs-formal dependency boundaries.
+
+---
+
 ## [0.1.2]
 
 ### Changed
