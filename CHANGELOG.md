@@ -39,6 +39,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   source-only registry, leaf-library, and runtime-vs-formal dependency boundaries.
 - Added a Python package CI workflow that runs pytest, builds the distribution,
   and checks wheel/sdist metadata on Python 3.9, 3.11, and 3.12.
+- Added `docs/release-checklist.md` to block metadata-only wheels, stale extras,
+  missing wheel payloads, and version drift before PyPI upload.
 
 ---
 
