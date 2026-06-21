@@ -37,6 +37,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   README floor mention, and source-only registry behavior.
 - Added `docs/dependency-policy.md` to preserve the base-package, extras,
   source-only registry, leaf-library, and runtime-vs-formal dependency boundaries.
+- Added a Python package CI workflow that runs pytest, builds the distribution,
+  and checks wheel/sdist metadata on Python 3.9, 3.11, and 3.12.
 
 ---
 
