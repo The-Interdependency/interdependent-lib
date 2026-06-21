@@ -15,7 +15,7 @@ Each sub-library is an optional dependency — install the extras you need:
 
 from __future__ import annotations
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __author__ = "Erin Patrick Spencer"
 __email__ = "wayseer@interdependentway.org"
 __license__ = "MPL-2.0"
@@ -31,27 +31,32 @@ from interdependent_lib.coherence_primes import (
     sequence_up_to,
 )
 
-# Registry of optional sub-libraries: logical_name -> import_name.
-# Libraries marked "(source-only)" are not yet on PyPI; they will appear
-# as False in available() unless installed manually from source.
-_REGISTRY: dict[str, str] = {
+# Registry of optional sub-libraries: logical_name -> stable import name.
+# A value of None means the library has no stable, package-unique import target
+# yet. This avoids false positives from generic module names such as "core".
+_REGISTRY: dict[str, str | None] = {
     # Four-letter acronym libraries
     "pcea": "pcea",
     "ptca": "ptca",
     "ucns": "ucns",
-    "pcna": "core",          # source-only: https://github.com/The-Interdependency/pcna
-    "zfae": "zfae",          # source-only: https://github.com/The-Interdependency/ZFAE
+    "pcna": None,            # source-only; no package-unique import target yet
+    "zfae": "zfae",          # source-only unless installed manually from source
     # Five-letter acronym libraries
     "aimmh": "aimmh_lib",
 }
 
 
 def available() -> dict[str, bool]:
-    """Return a dict showing which optional sub-libraries are importable."""
+    """Return a dict showing which optional sub-libraries are importable.
+
+    Source-only libraries without a stable import target deliberately report
+    False rather than probing generic module names that could collide with
+    unrelated packages.
+    """
     import importlib.util
 
     return {
-        name: importlib.util.find_spec(import_name) is not None
+        name: (False if import_name is None else importlib.util.find_spec(import_name) is not None)
         for name, import_name in _REGISTRY.items()
     }
 
