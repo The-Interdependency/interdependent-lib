@@ -9,8 +9,14 @@ This directory contains per-library documentation and stub folders for each acro
 | [ptca/](ptca/README.md) | `ptca` | `ptca-lib` | Prime Tensor Core Architecture — seeds → core (stack layer 3) |
 | [pcta/](pcta/README.md) | `pcta` | *(not yet on PyPI)* | Prime Circled Tensor Architecture — circles → seeds (stack layer 2); see [prime-tensor stack](../docs/prime-tensor-stack.md) |
 | [ucns/](ucns/README.md) | `ucns` | `ucns` | Unit Circle Number System |
-| [zfae/](zfae/README.md) | `zfae` | *(source-only)* | Zeta Function Alpha Echo |
+| [zfae/](zfae/README.md) | `zfae` | *(conceptual — runtime lives in `a0`, no dist planned)* | Zeta Function Alpha Echo |
 | [aimmh/](aimmh/README.md) | `aimmh_lib` | `aimmh-lib` | AI Multimodel Multimodal Hub |
+| [metapat/](metapat/README.md) | `metapat` | *(not yet on PyPI)* | Meta Energy Theory — Axioms, Postulates, And Theorems (FLAR — first-letter acronym repo) |
+
+> Naming note: the `PTCA → pcsa` rename (and org-wide casing normalization) is
+> ratified — see [`docs/naming-migration.md`](../docs/naming-migration.md). Names
+> in this table track what is actually published/importable today and are swept
+> when each rename lands.
 
 ---
 

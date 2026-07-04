@@ -32,14 +32,20 @@ Verified against `[project.optional-dependencies]` in `pyproject.toml`.
 | AIMMH | `aimmh-lib>=1.1.0`| `aimmh` | Packaged | AI Multimodel Multimodal Hub (five-letter) |
 | PCNA  | —                 | —       | Source-only (not on PyPI) | Prime Circle Neural Architecture (stack layer 1: tensors → circles, backprop) |
 | PCTA  | —                 | —       | Repo created; not yet on PyPI | Prime Circled Tensor Architecture (stack layer 2: circles → seeds); see `docs/prime-tensor-stack.md` |
-| ZFAE  | —                 | —       | Source-only (not on PyPI) | Zeta Function Alpha Echo (inference engine) |
+| ZFAE  | —                 | —       | Conceptual (runtime lives in `a0`; no dist planned) | Zeta Function Alpha Echo (inference engine) |
+| METAPAT | —               | —       | FLAR; registered, not yet on PyPI | Meta Energy Theory — Axioms, Postulates, And Theorems (first-letter acronym repo; canon + unpublished `metapat` 0.0.1 src-layout package) |
 
 PCNA, PCTA, PTCA and ZFAE form one compute stack (PCEA is the orthogonal
 guardian) — the canonical role-and-boundary map is `docs/prime-tensor-stack.md`.
 PCTA now has a repo (`The-Interdependency/pcta`) but is not yet published; unlike
 PCNA/ZFAE it is **not** in `_REGISTRY` and has no extra until it ships to PyPI.
 
-The `all` extra installs the four packaged libraries together. `dev` installs `pytest>=8.0`, `build`, and `twine`. PCNA and ZFAE appear in `available()` and `libs/` but have no extra until they have stable PyPI releases.
+The `all` extra installs the four packaged libraries together. `dev` installs `pytest>=8.0`, `build`, and `twine`. PCNA, ZFAE, and METAPAT appear in `available()` and `libs/` but have no extra until they have stable PyPI releases.
+
+> **Naming migration.** The org-wide rename scheme (`PTCA → pcsa`, casing
+> normalization, `ucns` frozen) is ratified — `docs/naming-migration.md` is the
+> reference, including the extras/registry transition rules. Names above track
+> what is published/importable today.
 
 ---
 

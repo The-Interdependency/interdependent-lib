@@ -17,8 +17,21 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   (back-propagation lives only in PCNA) and marks unsettled specifics `hmmm`.
 - `libs/pcta/` stub for the forthcoming PCTA seed layer (no repo/package yet;
   documented only, not registered in `_REGISTRY`).
+- **METAPAT joins the bundle as the first FLAR (first-letter acronym repo)**:
+  `_REGISTRY["metapat"]` → import name `metapat` (package-unique target exists
+  upstream in `The-Interdependency/METAPAT` `src/metapat/`), `libs/metapat/`
+  documentation stub, and a drift-guard test asserting no extra appears before
+  a stable PyPI release.
+- `docs/naming-migration.md` — ratified org-wide rename scheme: lowercase-hyphen
+  convention; `ucns` frozen (DOI-minted); `PTCA → pcsa` (new dist supersedes
+  `ptca-lib`); casing-only renames for `PCEA`/`ZFAE`/`METAPAT`; `eml_ucns →
+  eml-ucns`; a0 name shuffle. Includes sequencing and the extras/registry
+  transition rules for this repo.
 
 ### Notes
+- ZFAE is confirmed **conceptual-only** (its runtime lives in `a0`); it stays a
+  source-only registry key with no dist planned. `libs/README.md` updated to
+  reflect this.
 - A `prime-stack` extra bundling `{pcna, pcta, ptca}` is intended but **not**
   added yet — per repo policy, libraries enter `[project.optional-dependencies]`
   only after a stable PyPI release (today only `ptca-lib` qualifies).

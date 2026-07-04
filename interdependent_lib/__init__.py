@@ -43,6 +43,8 @@ _REGISTRY: dict[str, str | None] = {
     "zfae": "zfae",          # source-only unless installed manually from source
     # Five-letter acronym libraries
     "aimmh": "aimmh_lib",
+    # First-letter acronym libraries (FLAR)
+    "metapat": "metapat",    # Meta Energy Theory — Axioms, Postulates, And Theorems
 }
 
 
