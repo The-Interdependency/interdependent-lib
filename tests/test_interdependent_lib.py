@@ -33,7 +33,7 @@ def test_available_returns_dict():
     result = interdependent_lib.available()
     assert isinstance(result, dict)
     # All known sub-libs (PyPI and source-only) must appear as keys.
-    for key in ("pcea", "ptca", "ucns", "pcna", "zfae", "aimmh"):
+    for key in ("pcea", "ptca", "ucns", "pcna", "zfae", "aimmh", "metapat"):
         assert key in result
     # All values are booleans.
     for v in result.values():
@@ -43,6 +43,17 @@ def test_available_returns_dict():
 def test_pcna_source_only_does_not_probe_generic_core_module():
     """PCNA must not false-positive against an unrelated module named core."""
     assert interdependent_lib.available()["pcna"] is False
+
+
+def test_metapat_registered_with_unique_import_target_and_no_extra():
+    """METAPAT (FLAR) is a registry key probing its package-unique import name,
+    but has no extra until it ships a stable PyPI release (dependency policy)."""
+    assert interdependent_lib._REGISTRY["metapat"] == "metapat"
+    assert isinstance(interdependent_lib.available()["metapat"], bool)
+    text = _pyproject_text()
+    assert "metapat" not in text, (
+        "metapat must not appear in pyproject extras before a stable PyPI release"
+    )
 
 
 def test_ucns_dependency_floor_is_locked_in_ucns_and_all_extras():
