@@ -55,7 +55,8 @@ The tests must at least guard:
 
 - package `__version__` equals `pyproject.toml`;
 - `available()` returns stable keys and booleans;
-- PCNA does not false-positive against a generic module named `core`;
+- the prime-tensor stack is a single `ptcna` registry key (the former
+  pcna/pcta/pcsa keys are gone) and carries no extra until it publishes;
 - UCNS dependency floor remains present in both `ucns` and `all` extras;
 - README mentions the UCNS floor when the floor is meaningful.
 

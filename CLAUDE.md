@@ -26,26 +26,28 @@ Verified against `[project.optional-dependencies]` in `pyproject.toml`.
 
 | Acronym | PyPI / requirement | Extra | Status | Description |
 |---------|--------------------|-------|--------|-------------|
-| PCEA  | `pcea>=0.1.0`     | `pcea`  | Packaged | Prime Circular Encryption Algorithm (guardian — "last state as key" at every layer) |
-| PTCA  | `ptca-lib>=0.1.0` | `ptca`  | Packaged | Prime Tensor Core Architecture (stack layer 3: seeds → core; `ptca-lib` ships the sentinel-channel tensor system, the seeds→core role is `prime_core`) |
+| PTCNA | —                 | —       | Source-only (not on PyPI) | Prime Tensor Circled Neural Architecture — one repo, four layers (neural/circle/seed/core). **Consolidates the former PCNA/PCTA/PCSA.** Registered as `ptcna`; `ptcna` extra lands on PyPI release. See `docs/prime-tensor-stack.md` |
+| PCEA  | `pcea>=0.1.0`     | `pcea`  | Packaged | Prime Circular Encryption Algorithm (guardian — "last state as key" at every layer; orthogonal to the stack) |
 | UCNS  | `ucns>=0.9.1`     | `ucns`  | Packaged | Unit Circle Number System; Python runtime stdlib-only; upstream formal scaffold is Mathlib-backed |
 | AIMMH | `aimmh-lib>=1.1.0`| `aimmh` | Packaged | AI Multimodel Multimodal Hub (five-letter) |
-| PCNA  | —                 | —       | Source-only (not on PyPI) | Prime Circle Neural Architecture (stack layer 1: tensors → circles, backprop) |
-| PCTA  | —                 | —       | Repo created; not yet on PyPI | Prime Circled Tensor Architecture (stack layer 2: circles → seeds); see `docs/prime-tensor-stack.md` |
 | ZFAE  | —                 | —       | Conceptual (runtime lives in `a0`; no dist planned) | Zeta Function Alpha Echo (inference engine) |
 | METAPAT | —               | —       | FLAR; registered, not yet on PyPI | Meta Energy Theory — Axioms, Postulates, And Theorems (first-letter acronym repo; canon + unpublished `metapat` 0.0.1 src-layout package) |
 
-PCNA, PCTA, PTCA and ZFAE form one compute stack (PCEA is the orthogonal
-guardian) — the canonical role-and-boundary map is `docs/prime-tensor-stack.md`.
-PCTA now has a repo (`The-Interdependency/pcta`) but is not yet published; unlike
-PCNA/ZFAE it is **not** in `_REGISTRY` and has no extra until it ships to PyPI.
+The prime-tensor stack is now the single `ptcna` package — neural (the only
+back-propagating layer) + circle/seed/core (auditing/timing tensors). PCEA is the
+orthogonal guardian; ZFAE is the conceptual inference cap (runtime in `a0`). The
+canonical role-and-boundary map is `docs/prime-tensor-stack.md`.
 
-The `all` extra installs the four packaged libraries together. `dev` installs `pytest>=8.0`, `build`, and `twine`. PCNA, ZFAE, and METAPAT appear in `available()` and `libs/` but have no extra until they have stable PyPI releases.
+The `all` extra installs the three packaged libraries together (pcea, ucns,
+aimmh). `dev` installs `pytest>=8.0`, `build`, and `twine`. PTCNA, ZFAE, and
+METAPAT appear in `available()` and `libs/` but have no extra until they have
+stable PyPI releases (a single `ptcna` extra replaces the former per-repo intent).
 
-> **Naming migration.** The org-wide rename scheme (`PTCA → pcsa`, casing
-> normalization, `ucns` frozen) is ratified — `docs/naming-migration.md` is the
-> reference, including the extras/registry transition rules. Names above track
-> what is published/importable today.
+> **Naming migration + consolidation.** The org-wide rename scheme and the
+> **prime-tensor stack consolidation** (pcna/pcta/pcsa → single `ptcna`;
+> `ucns` frozen) are ratified — `docs/naming-migration.md` is the reference,
+> including the extras/registry transition rules. Names above track what is
+> published/importable today.
 
 ---
 
@@ -58,10 +60,10 @@ interdependent_lib/
 
 libs/                   Per-library documentation stubs (no primary code lives here)
   README.md             Lib index + sync-workflow notes
-  pcea/  ptca/  ucns/   Packaged libs (each has README.md; sync-libs.yml mirrors upstream into <name>/src)
+  pcea/  ucns/          Packaged libs (each has README.md; sync-libs.yml mirrors upstream into <name>/src)
   aimmh/                Packaged five-letter lib (README.md; sync-libs.yml mirrors into aimmh/src)
-  pcna/                 Source-only lib: README.md + src/ (mirrored upstream core/ sources, present in tree)
-  zfae/                 Source-only lib: README.md only (NOT synced by sync-libs.yml)
+  ptcna/               Consolidated prime-tensor stack (README.md; sync-libs.yml mirrors ptcna/ into ptcna/src)
+  metapat/  zfae/       Source-only libs: README.md only (NOT synced by sync-libs.yml)
 
 tests/                  pytest suite
   test_interdependent_lib.py   Smoke tests for available() and __version__
@@ -133,23 +135,20 @@ twine upload dist/*
   Lean/Mathlib-backed and is not a Python runtime dependency.
 - **`available()`** maps each known sub-library (logical name → import name) and
   reports which are importable in the current environment via `importlib.util.find_spec`.
-  The registry includes source-only libs (`pcna` → `core`, `zfae` → `zfae`), so they are
+  The registry includes source-only libs (`ptcna` → `ptcna`, `zfae` → `zfae`), so they are
   always present as keys but report `False` unless installed manually.
 - **Prime-tensor stack canon.** `docs/prime-tensor-stack.md` is the single source
-  of truth for how PCNA (Prime Circle Neural Architecture; tensors → circles,
-  back-propagation → weights), PCTA (Prime Circled Tensor Architecture; circles →
-  seeds), PTCA (Prime Tensor Core Architecture; seeds → core) and ZFAE (Zeta
-  Function Alpha Echo; inference, using PCNA weights + circles / seeds / cores as
-  phase-harmonic propagation + auditing) compose, with PCEA as the orthogonal
-  guardian ("last state as key" at every layer). Like the coherence-prime canon
-  it lives in the aggregator so leaf repos cite it without inverting the
-  dependency graph. Back-propagation lives **only** in PCNA; PCTA/PTCA
-  composition is structural/non-differentiable. **Composition counts are
+  of truth for the consolidated stack: **PTCNA** (Prime Tensor Circled Neural
+  Architecture) is one repo with four layers — `neural` (the only differentiable
+  layer; owns back-propagation), and `circle` / `seed` / `core` (auditing and
+  timing tensors; non-differentiable). Each layer's tensors divide into the next;
+  every circle/seed/core is itself a tensor. Within the core layer, **fiqs gate
+  internal propagation** per Fick's first law `J = −D ∇φ` (timing, not gradient
+  descent). PCEA is the orthogonal guardian ("last state as key" at every layer),
+  not a layer. Like the coherence-prime canon it lives in the aggregator so leaf
+  repos cite it without inverting the dependency graph. **Composition counts are
   variable** — the only invariant is that every circle/seed/core is itself a
-  tensor. The acronym expansions, the variable-count rule, the flow, and the
-  **formal definition of "motion"** — the Fickian gradient flux `J = −D ∇φ`
-  (Fick's first law; structure diffusing down its field gradient) — were all
-  resolved by the maintainer; **no stack-level `hmmm` remains**.
+  tensor.
 - **Coherence-prime canon.** `coherence_primes.py` is the single source of truth
   for the recursive coherence-prime sequence (base `{3,5,7}`, then `p≡1 mod 4`
   with a square-free kernel whose factors are all already coherence primes). It is
@@ -161,8 +160,8 @@ twine upload dist/*
   `libs/<name>/src`. It has two triggers: `workflow_dispatch` (manual) and an
   active `schedule:` cron (`0 3 * * 1` — every Monday 03:00 UTC; the cron line is
   *not* commented out, so it runs despite the misleading inline "disabled by
-  default" comment). It syncs only a **subset** of libs — `pcea`, `ptca`, `ucns`,
-  `pcna` (from upstream `core/`), and `aimmh` — **not** all `libs/<name>/src`:
+  default" comment). It syncs only a **subset** of libs — `pcea`, `ucns`,
+  `ptcna` (the consolidated stack), and `aimmh` — **not** all `libs/<name>/src`:
   `zfae` has no sync step and is never mirrored. Each step excludes the upstream
   `README.md` so the stubs stay authoritative, then commits any changes with
   `[skip ci]`.

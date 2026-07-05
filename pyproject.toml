@@ -16,18 +16,23 @@ keywords = ["prime", "tensor", "encryption", "neural", "unit-circle", "multi-mod
 dependencies = []
 
 [project.optional-dependencies]
-# Four-letter acronym libraries
+# Standalone libraries
 pcea  = ["pcea>=0.1.0"]
-ptca  = ["ptca-lib>=0.1.0"]
 ucns  = ["ucns>=0.9.1"]
 
 # Five-letter acronym libraries
 aimmh = ["aimmh-lib>=1.1.0"]
 
+# Prime-tensor stack: the former pcna / pcta / pcsa repos are consolidated into
+# the single ptcna package (neural/circle/seed/core), which supersedes the
+# previously-published core-layer dist. A `ptcna` extra lands once ptcna ships
+# to PyPI; until then it is a source-only registry probe and no extra references
+# it (extras pin published dists only). See docs/naming-migration.md and
+# docs/dependency-policy.md.
+
 # Install all packaged libraries at once
 all = [
     "pcea>=0.1.0",
-    "ptca-lib>=0.1.0",
     "ucns>=0.9.1",
     "aimmh-lib>=1.1.0",
 ]

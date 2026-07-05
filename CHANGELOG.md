@@ -9,6 +9,27 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Changed
+- **Prime-tensor stack consolidated into a single `ptcna` package.** The former
+  `pcna`/`pcta`/`pcsa` repos — never actually separate things, just layers of one
+  architecture — are unified into `The-Interdependency/ptcna` (Prime Tensor
+  Circled Neural Architecture), four layers: `neural` (the only back-propagating
+  layer) + `circle`/`seed`/`core` (auditing/timing tensors; fiqs gate core
+  internal propagation per Fick's law). In this repo:
+  - `_REGISTRY` collapses `pcna`/`pcta` into a single `ptcna` → `ptcna` key.
+  - `pyproject.toml` drops the `ptca` extra and its `ptca-lib` pin (superseded);
+    a single `ptcna` extra lands once `ptcna` publishes to PyPI. `prime-stack`
+    intent is obsolete.
+  - `docs/prime-tensor-stack.md` rewritten around the four-layer single-repo
+    model (backprop-only-in-neural; circle/seed/core as auditing/timing tensors;
+    fiq/Fick core timing).
+  - `libs/pcna|pcta|ptca/` stubs replaced by `libs/ptcna/`; `sync-libs.yml` syncs
+    the consolidated `ptcna/` package; README/CLAUDE/dependency-policy/
+    release-checklist/CONTRIBUTING updated; `naming-migration.md` records the
+    consolidation as the terminal state.
+  - drift-guard tests updated: single `ptcna` key, old keys gone, no `ptca-lib`
+    pin remains.
+
 ### Added
 - `docs/prime-tensor-stack.md` — canonical role-and-boundary map for the
   prime-tensor compute family: PCNA (tensors + back-propagation → weights) →

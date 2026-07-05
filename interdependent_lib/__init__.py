@@ -7,10 +7,14 @@ Importing this package does **not** require any sub-library to be installed.
 Each sub-library is an optional dependency — install the extras you need:
 
     pip install interdependent-lib[pcea]
-    pip install interdependent-lib[ptca]
     pip install interdependent-lib[ucns]
     pip install interdependent-lib[aimmh]
     pip install interdependent-lib[all]
+
+The prime-tensor stack is consolidated into the single ``ptcna`` package
+(Prime Tensor Circled Neural Architecture — neural/circle/seed/core layers).
+It is a source-only registry probe until it ships to PyPI, at which point it
+gains a ``ptcna`` extra. See docs/naming-migration.md.
 """
 
 from __future__ import annotations
@@ -35,12 +39,13 @@ from interdependent_lib.coherence_primes import (
 # A value of None means the library has no stable, package-unique import target
 # yet. This avoids false positives from generic module names such as "core".
 _REGISTRY: dict[str, str | None] = {
-    # Four-letter acronym libraries
-    "pcea": "pcea",
-    "ptca": "ptca",
+    # Prime-tensor stack — consolidated into ONE repo, four layers
+    # (neural/circle/seed/core). Supersedes the former pcna/pcta/pcsa keys.
+    "ptcna": "ptcna",        # Prime Tensor Circled Neural Architecture
+    # Standalone libraries
+    "pcea": "pcea",          # encryption guardian — orthogonal to the stack
     "ucns": "ucns",
-    "pcna": None,            # source-only; no package-unique import target yet
-    "zfae": "zfae",          # source-only unless installed manually from source
+    "zfae": "zfae",          # conceptual; runtime lives in a0 (source-only)
     # Five-letter acronym libraries
     "aimmh": "aimmh_lib",
     # First-letter acronym libraries (FLAR)
