@@ -23,13 +23,15 @@ jobs:
           mkdir -p libs/pcea/src
           rsync -av --delete --exclude='README.md' /tmp/pcea-src/pcea/ libs/pcea/src/
 
-      # ── PTCA ────────────────────────────────────────────────────────────────
-      - name: Sync ptca lib
+      # ── PTCNA (consolidated prime-tensor stack) ─────────────────────────────
+      # Supersedes the former separate pcna / pcta / pcsa sync steps. One repo,
+      # four layers (neural/circle/seed/core) under the ptcna/ package.
+      - name: Sync ptcna package
         run: |
-          rm -rf /tmp/ptca-src
-          git clone --depth 1 https://github.com/The-Interdependency/PTCA.git /tmp/ptca-src
-          mkdir -p libs/ptca/src
-          rsync -av --delete --exclude='README.md' /tmp/ptca-src/ptca/ libs/ptca/src/
+          rm -rf /tmp/ptcna-src
+          git clone --depth 1 https://github.com/The-Interdependency/ptcna.git /tmp/ptcna-src
+          mkdir -p libs/ptcna/src
+          rsync -av --delete --exclude='README.md' /tmp/ptcna-src/ptcna/ libs/ptcna/src/
 
       # ── UCNS ────────────────────────────────────────────────────────────────
       - name: Sync ucns lib
@@ -38,14 +40,6 @@ jobs:
           git clone --depth 1 https://github.com/The-Interdependency/ucns.git /tmp/ucns-src
           mkdir -p libs/ucns/src
           rsync -av --delete --exclude='README.md' /tmp/ucns-src/ucns/ libs/ucns/src/
-
-      # ── PCNA core ───────────────────────────────────────────────────────────
-      - name: Sync pcna core
-        run: |
-          rm -rf /tmp/pcna-src
-          git clone --depth 1 https://github.com/The-Interdependency/pcna.git /tmp/pcna-src
-          mkdir -p libs/pcna/src
-          rsync -av --delete --exclude='README.md' /tmp/pcna-src/core/ libs/pcna/src/
 
       # ── AIMMH ───────────────────────────────────────────────────────────────
       - name: Sync aimmh lib

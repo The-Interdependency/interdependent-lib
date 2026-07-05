@@ -16,12 +16,10 @@
 
 | Acronym | Full Name | Letters | Description |
 |---------|-----------|---------|-------------|
-| [PCEA](libs/pcea/README.md) | Prime Circular Encryption Algorithm | 4 | Neural architecture state encryption ("last state as key") at every layer |
-| [PTCA](libs/ptca/README.md) | Prime Tensor Core Architecture | 4 | Stack layer 3 — seeds → core. (`ptca-lib` ships the sentinel-channel / prime-node tensor system; the seeds→core role is `prime_core`.) |
-| [PCTA](libs/pcta/README.md) | Prime Circled Tensor Architecture | 4 | Stack layer 2 — composes UCNS-carried circles → seeds |
+| [PTCNA](libs/ptcna/README.md) | Prime Tensor Circled Neural Architecture | — | The prime-tensor stack, consolidated into one repo, four layers (neural/circle/seed/core). Supersedes the former PCNA/PCTA/PCSA |
+| [PCEA](libs/pcea/README.md) | Prime Circular Encryption Algorithm | 4 | Neural architecture state encryption ("last state as key") at every layer; orthogonal guardian |
 | [UCNS](libs/ucns/README.md) | Unit Circle Number System | 4 | Recursive factorization theory, witness-matrix quotient solver, A0-safe factorization envelopes, and Mathlib-backed formal scaffold upstream |
-| [PCNA](libs/pcna/README.md) | Prime Circle Neural Architecture | 4 | Stack layer 1 — tensors → circles in a back-propagating NN → weights |
-| [ZFAE](libs/zfae/README.md) | Zeta Function Alpha Echo | 4 | Inference engine — pcna weights + circles / seeds / cores as phase-harmonic propagation |
+| [ZFAE](libs/zfae/README.md) | Zeta Function Alpha Echo | 4 | Inference engine (conceptual; runtime in `a0`) — reads neural weights + circles / seeds / cores as phase-harmonic propagation |
 | [AIMMH](libs/aimmh/README.md) | AI Multimodel Multimodal Hub | 5 | Zero-dependency async multi-model conversation orchestration |
 
 ---
@@ -34,9 +32,9 @@ pip install interdependent-lib
 
 # Install only specific libraries
 pip install interdependent-lib[pcea]
-pip install interdependent-lib[ptca]
 pip install interdependent-lib[ucns]   # ucns>=0.9.1
 pip install interdependent-lib[aimmh]
+# ptcna (the consolidated prime-tensor stack) gets a [ptcna] extra once it publishes to PyPI
 
 # Install everything
 pip install interdependent-lib[all]
@@ -57,16 +55,19 @@ print(interdependent_lib.available())
 
 ## The Prime-Tensor Stack
 
-PCNA, PCTA, PTCA and ZFAE form a single compute stack (PCEA is the orthogonal
-guardian). Composition counts are **variable** at every level — the only
-invariant is that every circle, seed, and core is itself a tensor. The canonical
-role-and-boundary map lives in
+The stack is one package — **PTCNA** (Prime Tensor Circled Neural Architecture) —
+with four layers. PCEA is the orthogonal guardian; ZFAE is the conceptual
+inference cap (runtime in `a0`). Composition counts are **variable** at every
+level — the only invariant is that every circle, seed, and core is itself a
+tensor. The canonical role-and-boundary map lives in
 **[docs/prime-tensor-stack.md](docs/prime-tensor-stack.md)**:
 
 ```
-PCNA (tensors → circles, back-prop) ─► weights + circles ─► PCTA (circles → seeds)
-  ─► seeds ─► PTCA (seeds → core) ─► cores ─► a0(ZFAE) infers
-PCEA — guardian: "last state as key for this state" at every layer (orthogonal)
+neural tensors ─(circle layer)─► circles ─(seed layer)─► seeds ─(core layer)─► cores
+  back-propagation lives ONLY in the neural layer
+  circle / seed / core are auditing & timing tensors (non-differentiable);
+    fiqs gate core internal propagation per Fick's law (J = −D ∇φ)
+PCEA — guardian: "last state as key for this state" at every layer (orthogonal; not a layer)
 ```
 
 ---
@@ -75,12 +76,12 @@ PCEA — guardian: "last state as key for this state" at every layer (orthogonal
 
 See `libs/` for per-library documentation and source links:
 
-- [`libs/pcea/`](libs/pcea/README.md) — PCEA
-- [`libs/ptca/`](libs/ptca/README.md) — PTCA
+- [`libs/ptcna/`](libs/ptcna/README.md) — PTCNA (consolidated stack: neural/circle/seed/core)
+- [`libs/pcea/`](libs/pcea/README.md) — PCEA (orthogonal guardian)
 - [`libs/ucns/`](libs/ucns/README.md) — UCNS
-- [`libs/pcna/`](libs/pcna/README.md) — PCNA
-- [`libs/zfae/`](libs/zfae/README.md) — ZFAE
+- [`libs/zfae/`](libs/zfae/README.md) — ZFAE (conceptual; runtime in `a0`)
 - [`libs/aimmh/`](libs/aimmh/README.md) — AIMMH (five-letter)
+- [`libs/metapat/`](libs/metapat/README.md) — METAPAT (FLAR)
 
 ---
 

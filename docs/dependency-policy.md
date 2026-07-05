@@ -22,9 +22,14 @@ stable PyPI package and a stable import name.
 Current packaged extras:
 
 - `pcea` -> `pcea>=0.1.0`
-- `ptca` -> `ptca-lib>=0.1.0`
 - `ucns` -> `ucns>=0.9.1`
 - `aimmh` -> `aimmh-lib>=1.1.0`
+
+The prime-tensor stack (`pcna` / `pcta` / `pcsa`) is consolidated into the single
+`ptcna` package. It is a source-only registry probe until it ships to PyPI, at
+which point a single `ptcna` extra is added (replacing the former per-repo intent
+and the once-planned `prime-stack` extra). The previously-published core-layer
+dist is superseded and no longer pinned by any extra.
 
 The `all` extra is the union of packaged extras only. Source-only libraries do
 not enter `all` until they have stable package releases.

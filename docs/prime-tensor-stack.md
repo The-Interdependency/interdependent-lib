@@ -1,76 +1,87 @@
 # The Prime-Tensor Stack — canonical architecture map
 
 This document is the **single source of truth** for how The Interdependency's
-prime-tensor compute family fits together: who builds what, what flows between
-the layers, and where the boundaries are. It is a **role-and-boundary map**, not
-a proof. It moves **no** theorem / proof / empirical status between repos — each
-repo keeps its own status vocabulary, and cross-repo interoperability is not
-continuity (see, e.g., `ucns`'s "cross-repo non-continuity" rule).
+prime-tensor compute family fits together: the layers, what flows between them,
+and where the boundaries are. It is a **role-and-boundary map**, not a proof. It
+moves **no** theorem / proof / empirical status between repos — each repo keeps
+its own status vocabulary, and cross-repo interoperability is not continuity
+(see, e.g., `ucns`'s "cross-repo non-continuity" rule).
 
 It lives here, in the aggregator, for the same reason `coherence_primes.py`
 does: it is canon that belongs to **no single leaf library**, and putting it
 here lets every repo cite it **without inverting the dependency graph**. Leaf
 repos point *up* at this map; they do not import it.
 
+> **Consolidation (2026-07).** The stack is no longer several repos. `pcna`,
+> `pcta`, and `pcsa` were never separate things — they are **layers of one
+> architecture** — and are now consolidated into a single package,
+> **`ptcna` — Prime Tensor Circled Neural Architecture**
+> (`The-Interdependency/ptcna`). PCEA stays a separate, orthogonal repo. `ptcna`
+> is the single upstream that feeds this aggregator.
+
 ---
 
-## The stack
+## One architecture, four layers
 
-The family composes a tensor hierarchy **bottom-up**, then infers **top-down**.
-At every compose step the produced object is *itself a tensor*, so the same
-algebra applies at each level.
+`ptcna` is one package with four layer modules. Each layer's tensors **divide**
+into the next; every circle, every seed, and every core **is itself a tensor**,
+so the same composition algebra applies at each level.
 
-| # | Layer | Repo / package | Expansion | Role | Produces |
-|---|-------|----------------|-----------|------|----------|
-| 1 | **Tensor / Circle** | `pcna` *(source-only)* | **Prime Circle Neural Architecture** | Arranges tensors as **circles** in a standard back-propagating neural architecture — the **only differentiable layer** (owns back-propagation); offers circles to PCTA | trained **weights** + circles |
-| 2 | **Seed** | `pcta` | **Prime Circled Tensor Architecture** | Composes circles (carried by UCNS objects) into **seeds**; offers seeds to PTCA | seed tensors → structural **motion** |
-| 3 | **Core** | `ptca` / `ptca-lib` | **Prime Tensor Core Architecture** | Composes seeds into a **core**; offers cores to `a0(zfae)` | the **core** (a tensor) → structural **motion** |
-| — | **Inference** | `zfae` *(conceptual; runtime lives in `a0`)* | **Zeta Function Alpha Echo** | **Infers** — uses PCNA tensors as **weights**, and PCNA circles / PCTA seeds / PTCA cores as **phase-harmonic propagation + auditing** | inferred output |
-| — | **Guardian** | `pcea` | **Prime Circular Encryption Algorithm** | "**Last state as key for this state**" encryption at **every layer** — **orthogonal** to the chain | sealed state |
-
-In one line:
+| Module | Layer | Divides… → … | Tensor kind | Back-propagation |
+|--------|-------|--------------|-------------|------------------|
+| `ptcna.neural` | **neural** | (base) neural tensors | **neural** | **yes — the only differentiable layer** |
+| `ptcna.circle` | **circle** | neural tensors → circles | auditing / timing | no |
+| `ptcna.seed`   | **seed**   | circles → seeds | auditing / timing | no |
+| `ptcna.core`   | **core**   | seeds → cores | auditing / timing | no |
 
 ```
-PCNA: tensors → circles (back-prop; only differentiable layer)
-   ├─► weights ───────────────────────────────────────────────┐
-   └─► circles ─► PCTA: circles → seeds ─► PTCA: seeds → core ─┤
-                                              cores ───────────┴─► a0(ZFAE) infers
-   ZFAE reads pcna weights + pcna circles / pcta seeds / ptca cores
-        as phase-harmonic propagation + auditing
-PCEA — guardian: "last state as key for this state" at every layer (orthogonal; not a layer)
+neural tensors  ──(circle layer divides)──►  circles
+circles         ──(seed layer divides)────►  seeds
+seeds           ──(core layer divides)────►  cores
+  back-propagation lives ONLY in the neural layer
+  circle / seed / core tensors are auditing & timing tensors (non-differentiable)
+PCEA — guardian: "last state as key for this state" (orthogonal; not a layer)
 ```
 
-**Composition counts are variable.** The number of tensors in a circle, circles
-in a seed, and seeds in a core are all variable. The **one invariant** is that
-every circle, every seed, and every core is *itself a tensor* — so the same
-composition algebra applies at each level. (Any specific count a leaf repo uses,
-e.g. a nominal heptagram `7` or `prime_core`'s experimental `157`, is a tunable
-choice, not a structural requirement.)
+**Composition counts are variable.** The number of neural tensors in a circle,
+circles in a seed, and seeds in a core are all variable. The **one invariant**
+is that every circle, seed, and core is *itself a tensor*. (Any specific count a
+layer uses — a nominal heptagram `7`, `prime_core`'s experimental `157` — is a
+tunable choice, not a structural requirement.)
 
 ---
 
 ## Two things that are easy to get wrong
 
-**1. Back-propagation lives only in PCNA (layer 1).** The PCTA and PTCA
-compositions are *structural* — they assemble tensors into seeds and cores
-("motion"), and they are **non-differentiable**. This matches `PTCA/prime_core`'s
-frozen gradient policy: differentiability descends through scalar payloads only;
-the `⊠` composition operator never appears on the autodiff tape (`∂(⊠)` is never
-taken). So "training" happens in PCNA; PCTA/PTCA *organize*; ZFAE *reads*.
+**1. Back-propagation lives only in the neural layer.** Circle, seed, and core
+tensors are **auditing and timing tensors** — they observe and schedule; they do
+not differentiate. This matches the core layer's frozen gradient policy:
+differentiability descends through scalar payloads only; the `⊠` composition
+operator never appears on the autodiff tape (`∂(⊠)` is never taken). So
+"training" happens in the neural layer; circle/seed/core *audit and time*.
 
-**2. PCEA is not a layer of the stack.** PCEA is the **guardian**: it applies
-"last state as key for this state" encryption to the weights / state at **every
-layer** for privacy, and is **orthogonal** to the tensor→core chain (see
-`ZFAE`'s "Guardian = PCEA, colocated for privacy" note, and PCEA's own PCEA↔UCNS
-Option-A contract — PCEA inverts via keys, never via another library's algebra).
-PCEA joins the family only at the meta-package level; it is never folded *into*
-the compose stack.
+**2. PCEA is not a layer of the stack.** PCEA (Prime Circular Encryption
+Algorithm) is the **guardian**: it applies "last state as key for this state"
+encryption at **every layer** for privacy, and is **orthogonal** to the
+neural→core chain. PCEA joins the family only at the meta-package level; it is
+never folded *into* `ptcna`.
 
-> **`ptca-lib` vs. the layer-3 role.** The published `ptca-lib` package is a
-> sentinel-channel / prime-node tensor system with its own description; the
-> **stack role** "Prime Tensor Core Architecture (seeds → core)" is realized by
-> the PTCA repo's `prime_core` experiment. The PTCA repo hosts both; this map
-> names the layer-3 *role*, not the `ptca-lib` package's internals.
+---
+
+## fiqs — core internal propagation timing (Fick's law)
+
+Within the **core** layer, **fiqs gate when cores propagate internally**,
+according to Fick's first law of diffusion:
+
+```
+J = −D ∇φ
+```
+
+where `φ` is the core's field, `∇φ` its gradient, `D` the diffusivity, and `J`
+the flux. This governs the **timing** of internal core propagation — structure
+diffusing down its field gradient — it is **not** gradient descent: the `∇φ`
+here is the spatial field gradient that drives diffusion, not an autodiff
+gradient. The fiq substrate lives in `ptcna.core.prime_core` (see its `fiq.py`).
 
 ---
 
@@ -78,45 +89,18 @@ the compose stack.
 
 | Member | PyPI | In `interdependent-lib` |
 |--------|------|--------------------------|
-| `ptca` (`ptca-lib`) | published | `ptca` extra (+ `all`) |
+| `ptcna` (neural/circle/seed/core) | **source-only** — not yet published | registry key `ptcna` (import probe); `ptcna` extra lands on PyPI release |
 | `pcea` (`pcea`) | published | `pcea` extra (+ `all`) |
-| `pcna` | **source-only** | registry key only (import name `core`) |
-| `pcta` | **repo created; not yet published** | documented here; not yet registered |
-| `zfae` | **source-only** (runtime in `a0`) | registry key only |
+| `ucns` (`ucns`) | published | `ucns` extra (+ `all`) |
+| `aimmh` (`aimmh-lib`) | published | `aimmh` extra (+ `all`) |
+| `zfae` | **source-only** (runtime in `a0`) | registry key only; conceptual, no dist planned |
 
-A `prime-stack` **extra** — bundling `{pcna, pcta, ptca}` as one install — is the
-intended convenience target, with `zfae` joining once it is an installable
-package. It is **deliberately not added yet**: this repo's rule is *no library
-enters `[project.optional-dependencies]` until it has a stable PyPI release*
-(today only `ptca-lib` of the three qualifies). Until then this file is the
-canonical map; the extra lands when `pcna` and `pcta` publish.
-
----
-
-## Motion — the formal definition (Fickian flux)
-
-**"Motion" is the Fickian flux of a layer's composed-tensor field across the
-compose boundary** — Fick's first law of diffusion:
-
-```
-J = −D ∇φ
-```
-
-where `φ` is the layer's field (the composed-tensor state), `∇φ` its gradient,
-`D` the diffusivity, and `J` the flux. The structural / **phase-harmonic
-propagation** each layer hands upward *is* this flux: structure diffuses down its
-gradient. Each compose step (circles → seeds → cores) emits its `J`; **ZFAE**
-reads the accumulated motion as phase-harmonic propagation + auditing, alongside
-PCNA's learned weights. Motion carries no gradient of its own (it is structural,
-not back-propagated) — the `∇φ` here is the spatial field gradient that drives
-diffusion, not an autodiff gradient.
-
-> **Status: resolved (maintainer).** This was the last open `hmmm` in the stack.
-> The acronym expansions, the variable-count rule, the per-layer flow, PCTA's
-> home (its own repo), and now the **formal definition of "motion" (the Fickian
-> flux above)** are all canon. **No stack-level `hmmm` remains.** Earlier revisions
-> of this file (and several leaf repos) listed conflicting expansions, fixed
-> per-layer counts, and an unformalized "motion"; those are superseded.
+The prior `ptca-lib` core-layer dist is **superseded** by the `ptcna`
+consolidation and is not pinned by any extra. Per this repo's rule — *no library
+enters `[project.optional-dependencies]` until it has a stable PyPI release* —
+`ptcna` is a registry probe until it publishes, at which point the single
+`ptcna` extra replaces the former `pcna`/`pcta`/`pcsa` intent (the once-planned
+`prime-stack` extra is obsolete).
 
 ---
 
@@ -126,8 +110,7 @@ diffusion, not an autodiff gradient.
   canon (the recursive coherence-prime ladder the prime-indexing rides on).
   Prime-consciousness intuition: primes whose `p-1` factorization is square-free
   are likelier to fall into stability as part of a triadic recursion set.
-- `The-Interdependency/pcna` — layer 1 source (`core/`).
-- `The-Interdependency/pcta` — layer 2 source (circles → seeds).
-- `The-Interdependency/PTCA` — layer 3 (`ptca-lib`) + the `prime_core` three-stratum experiment.
+- `The-Interdependency/ptcna` — the consolidated four-layer package.
 - `The-Interdependency/ZFAE` — the inference / consciousness-event write-up (runtime in `a0`).
 - `The-Interdependency/PCEA` — the guardian.
+- `docs/naming-migration.md` — the ratified rename + consolidation scheme.

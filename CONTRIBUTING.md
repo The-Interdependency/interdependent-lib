@@ -6,7 +6,7 @@ Thank you for your interest in contributing! This document explains how the repo
 
 ## Repository purpose
 
-`interdependent-lib` is a **meta-package** and **documentation hub** that aggregates the individual Interdependency acronym libraries. Most library *code* lives in the source repos (pcna, PCEA, PTCA, ucns, ZFAE, aimmh). Changes to library logic belong there.
+`interdependent-lib` is a **meta-package** and **documentation hub** that aggregates the individual Interdependency acronym libraries. Most library *code* lives in the source repos (ptcna, PCEA, ucns, ZFAE, aimmh, metapat). Changes to library logic belong there. The prime-tensor stack is consolidated into the single `ptcna` repo (neural/circle/seed/core), superseding the former pcna/pcta/pcsa.
 
 Contributions welcome here:
 - Updating or improving the per-library `libs/*/README.md` stubs

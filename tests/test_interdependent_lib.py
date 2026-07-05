@@ -33,16 +33,30 @@ def test_available_returns_dict():
     result = interdependent_lib.available()
     assert isinstance(result, dict)
     # All known sub-libs (PyPI and source-only) must appear as keys.
-    for key in ("pcea", "ptca", "ucns", "pcna", "zfae", "aimmh", "metapat"):
+    for key in ("pcea", "ucns", "ptcna", "zfae", "aimmh", "metapat"):
         assert key in result
     # All values are booleans.
     for v in result.values():
         assert isinstance(v, bool)
 
 
-def test_pcna_source_only_does_not_probe_generic_core_module():
-    """PCNA must not false-positive against an unrelated module named core."""
-    assert interdependent_lib.available()["pcna"] is False
+def test_prime_tensor_stack_consolidated_into_single_ptcna_key():
+    """pcna/pcta/pcsa were consolidated into the single ptcna package
+    (neural/circle/seed/core). The old per-layer keys must be gone, and ptcna
+    probes its package-unique import name."""
+    reg = interdependent_lib._REGISTRY
+    assert reg["ptcna"] == "ptcna"
+    for gone in ("pcna", "pcta", "pcsa", "ptsa"):
+        assert gone not in reg, f"{gone} should be consolidated into ptcna"
+    assert isinstance(interdependent_lib.available()["ptcna"], bool)
+
+
+def test_ptcna_has_no_extra_until_published_and_ptca_lib_superseded():
+    """ptcna is a source-only probe until it ships to PyPI (no extra yet), and
+    the superseded ptca-lib dist must no longer be pinned anywhere."""
+    text = _pyproject_text()
+    assert "ptca-lib" not in text, "ptca-lib is superseded by the ptcna consolidation"
+    assert "ptca " not in text and "\nptca" not in text, "no ptca extra should remain"
 
 
 def test_metapat_registered_with_unique_import_target_and_no_extra():
