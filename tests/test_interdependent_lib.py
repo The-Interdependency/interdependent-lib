@@ -51,12 +51,13 @@ def test_prime_tensor_stack_consolidated_into_single_ptcna_key():
     assert isinstance(interdependent_lib.available()["ptcna"], bool)
 
 
-def test_ptcna_has_no_extra_until_published_and_ptca_lib_superseded():
-    """ptcna is a source-only probe until it ships to PyPI (no extra yet), and
-    the superseded ptca-lib dist must no longer be pinned anywhere."""
+def test_ptcna_extra_pins_published_dist_and_ptca_lib_gone():
+    """ptcna is published to PyPI, so a single `ptcna` extra pins it and it is
+    part of `all`. The superseded ptca-lib dist must not be pinned anywhere."""
     text = _pyproject_text()
     assert "ptca-lib" not in text, "ptca-lib is superseded by the ptcna consolidation"
-    assert "ptca " not in text and "\nptca" not in text, "no ptca extra should remain"
+    assert 'ptcna = ["ptcna>=0.1.0"]' in text, "ptcna extra must pin the published dist"
+    assert text.count('"ptcna>=0.1.0"') >= 2, "ptcna must also appear in the `all` extra"
 
 
 def test_metapat_registered_with_unique_import_target_and_no_extra():

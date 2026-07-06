@@ -34,7 +34,7 @@ pip install interdependent-lib
 pip install interdependent-lib[pcea]
 pip install interdependent-lib[ucns]   # ucns>=0.9.1
 pip install interdependent-lib[aimmh]
-# ptcna (the consolidated prime-tensor stack) gets a [ptcna] extra once it publishes to PyPI
+pip install interdependent-lib[ptcna]  # the consolidated prime-tensor stack
 
 # Install everything
 pip install interdependent-lib[all]

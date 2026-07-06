@@ -9,6 +9,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+- **`ptcna` extra** (`ptcna>=0.1.0`) now that the consolidated prime-tensor stack
+  is published to PyPI; also added to the `all` extra. Docs (pyproject comment,
+  dependency-policy, prime-tensor-stack packaging table, README, CLAUDE,
+  naming-migration) updated from "lands on release" to published. Drift-guard
+  test now asserts the `ptcna` extra pins the published dist and appears in `all`.
+
 ### Changed
 - **Prime-tensor stack consolidated into a single `ptcna` package.** The former
   `pcna`/`pcta`/`pcsa` repos — never actually separate things, just layers of one
@@ -18,8 +25,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   internal propagation per Fick's law). In this repo:
   - `_REGISTRY` collapses `pcna`/`pcta` into a single `ptcna` → `ptcna` key.
   - `pyproject.toml` drops the `ptca` extra and its `ptca-lib` pin (superseded);
-    a single `ptcna` extra lands once `ptcna` publishes to PyPI. `prime-stack`
-    intent is obsolete.
+    a single `ptcna` extra replaces it (added once `ptcna` published — see the
+    Added section above). `prime-stack` intent is obsolete.
   - `docs/prime-tensor-stack.md` rewritten around the four-layer single-repo
     model (backprop-only-in-neural; circle/seed/core as auditing/timing tensors;
     fiq/Fick core timing).
