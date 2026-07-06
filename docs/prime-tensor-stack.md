@@ -89,18 +89,16 @@ gradient. The fiq substrate lives in `ptcna.core.prime_core` (see its `fiq.py`).
 
 | Member | PyPI | In `interdependent-lib` |
 |--------|------|--------------------------|
-| `ptcna` (neural/circle/seed/core) | **source-only** — not yet published | registry key `ptcna` (import probe); `ptcna` extra lands on PyPI release |
+| `ptcna` (neural/circle/seed/core) | **published** (`ptcna>=0.1.0`) | `ptcna` extra (+ `all`); registry key `ptcna` |
 | `pcea` (`pcea`) | published | `pcea` extra (+ `all`) |
 | `ucns` (`ucns`) | published | `ucns` extra (+ `all`) |
 | `aimmh` (`aimmh-lib`) | published | `aimmh` extra (+ `all`) |
 | `zfae` | **source-only** (runtime in `a0`) | registry key only; conceptual, no dist planned |
 
 The prior `ptca-lib` core-layer dist is **superseded** by the `ptcna`
-consolidation and is not pinned by any extra. Per this repo's rule — *no library
-enters `[project.optional-dependencies]` until it has a stable PyPI release* —
-`ptcna` is a registry probe until it publishes, at which point the single
-`ptcna` extra replaces the former `pcna`/`pcta`/`pcsa` intent (the once-planned
-`prime-stack` extra is obsolete).
+consolidation and is not pinned by any extra. The single `ptcna` extra replaces
+the former `pcna`/`pcta`/`pcsa` intent (the once-planned `prime-stack` extra is
+obsolete).
 
 ---
 

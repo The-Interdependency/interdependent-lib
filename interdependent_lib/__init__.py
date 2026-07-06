@@ -9,12 +9,13 @@ Each sub-library is an optional dependency — install the extras you need:
     pip install interdependent-lib[pcea]
     pip install interdependent-lib[ucns]
     pip install interdependent-lib[aimmh]
+    pip install interdependent-lib[ptcna]
     pip install interdependent-lib[all]
 
 The prime-tensor stack is consolidated into the single ``ptcna`` package
-(Prime Tensor Circled Neural Architecture — neural/circle/seed/core layers).
-It is a source-only registry probe until it ships to PyPI, at which point it
-gains a ``ptcna`` extra. See docs/naming-migration.md.
+(Prime Tensor Circled Neural Architecture — neural/circle/seed/core layers),
+published to PyPI and installable via the ``ptcna`` extra. See
+docs/naming-migration.md.
 """
 
 from __future__ import annotations

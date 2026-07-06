@@ -26,7 +26,7 @@ Verified against `[project.optional-dependencies]` in `pyproject.toml`.
 
 | Acronym | PyPI / requirement | Extra | Status | Description |
 |---------|--------------------|-------|--------|-------------|
-| PTCNA | —                 | —       | Source-only (not on PyPI) | Prime Tensor Circled Neural Architecture — one repo, four layers (neural/circle/seed/core). **Consolidates the former PCNA/PCTA/PCSA.** Registered as `ptcna`; `ptcna` extra lands on PyPI release. See `docs/prime-tensor-stack.md` |
+| PTCNA | `ptcna>=0.1.0`    | `ptcna` | Packaged | Prime Tensor Circled Neural Architecture — one repo, four layers (neural/circle/seed/core). **Consolidates the former PCNA/PCTA/PCSA.** See `docs/prime-tensor-stack.md` |
 | PCEA  | `pcea>=0.1.0`     | `pcea`  | Packaged | Prime Circular Encryption Algorithm (guardian — "last state as key" at every layer; orthogonal to the stack) |
 | UCNS  | `ucns>=0.9.1`     | `ucns`  | Packaged | Unit Circle Number System; Python runtime stdlib-only; upstream formal scaffold is Mathlib-backed |
 | AIMMH | `aimmh-lib>=1.1.0`| `aimmh` | Packaged | AI Multimodel Multimodal Hub (five-letter) |
@@ -38,10 +38,11 @@ back-propagating layer) + circle/seed/core (auditing/timing tensors). PCEA is th
 orthogonal guardian; ZFAE is the conceptual inference cap (runtime in `a0`). The
 canonical role-and-boundary map is `docs/prime-tensor-stack.md`.
 
-The `all` extra installs the three packaged libraries together (pcea, ucns,
-aimmh). `dev` installs `pytest>=8.0`, `build`, and `twine`. PTCNA, ZFAE, and
+The `all` extra installs the four packaged libraries together (pcea, ucns,
+aimmh, ptcna). `dev` installs `pytest>=8.0`, `build`, and `twine`. The single
+`ptcna` extra replaces the former per-repo PCNA/PCTA/PCSA intent. ZFAE and
 METAPAT appear in `available()` and `libs/` but have no extra until they have
-stable PyPI releases (a single `ptcna` extra replaces the former per-repo intent).
+stable PyPI releases.
 
 > **Naming migration + consolidation.** The org-wide rename scheme and the
 > **prime-tensor stack consolidation** (pcna/pcta/pcsa → single `ptcna`;
@@ -135,8 +136,9 @@ twine upload dist/*
   Lean/Mathlib-backed and is not a Python runtime dependency.
 - **`available()`** maps each known sub-library (logical name → import name) and
   reports which are importable in the current environment via `importlib.util.find_spec`.
-  The registry includes source-only libs (`ptcna` → `ptcna`, `zfae` → `zfae`), so they are
-  always present as keys but report `False` unless installed manually.
+  The registry includes source-only libs (e.g. `zfae` → `zfae`), which are
+  always present as keys but report `False` unless installed manually; packaged
+  libs like `ptcna` → `ptcna` report `True` once their extra is installed.
 - **Prime-tensor stack canon.** `docs/prime-tensor-stack.md` is the single source
   of truth for the consolidated stack: **PTCNA** (Prime Tensor Circled Neural
   Architecture) is one repo with four layers — `neural` (the only differentiable
