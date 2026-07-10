@@ -146,34 +146,6 @@ A `MODULE_BUILD` runner should:
 5. optionally fail in strict mode when required build metadata is missing;
 6. emit a review summary grouped by `module_kind` and boundary risk.
 
-### Implementation: `runner.py`
-
-`runner.py` (this directory) implements the above on top of the msdmd universal
-parser. It emits a `module-graph/v1` document — one node per declared manifest
-entry plus one per unstamped source file (a visible coverage gap), dependency
-edges from the `requires` field, and per-repo coverage rollups. Unstamped files
-get a *flagged, inferred* `module_kind` (`kind_inferred: true`) from path
-heuristics — never asserted as declared truth; unknowns infer `hmmm`.
-
-This module-graph is the data layer a near-real-time filesystem visualizer
-reads (e.g. a0's SigmaCore); the visualizer wiring is intentionally out of the
-runner's scope.
-
-```bash
-# coverage table for the current repo
-python runner.py .
-
-# scan a workspace of sibling repos and write the graph
-python runner.py /path/to/workspace --json module_graph.json
-```
-
-```python
-from runner import scan
-graph = scan([Path("ucns"), Path("a0")])
-graph.to_dict()         # JSON-ready module-graph
-graph.coverage_table()  # human summary
-```
-
 ## Anti-patterns
 
 - Building code first and writing the manifest after.
