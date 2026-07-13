@@ -1,73 +1,13 @@
 """
 ucns.factor_search_v08
 =================================
-Witness-matrix recursive quotient solver.
+Exhaustive witness-matrix recursive factorization solver.
 
-    factor_search_v08(P) -> (A, B) | "SEQ-PRIME"
-
-Algorithm
----------
-For each non-trivial factorisation n = p * q of n = len(P.A_plus):
-
-1. Host recovery - extract the A and B angle sequences from P
-   (``host_recovery.recover_host_angles``).
-
-2. Payload system construction - extract the p by q grid of target
-   payloads from P and solve the coupled equations
-       multiply(S_A[k], S_B[j]) == P_payloads[k][j]
-   for all (k, j) simultaneously (``payload_system.solve_payload_system``).
-
-3. Witness-matrix construction plus consistency check - build the full
-   p by q witness matrix and call ``WitnessMatrix.globally_consistent()``.
-   A candidate is only accepted if all witnesses verify and the matrix
-   is row- and column-consistent.
-
-4. Face recovery - enumerate valid face-bit assignments.
-
-5. Exact recomposition verification - the final truth test:
-       multiply(A_candidate, B_candidate) == P
-
-   Factorizations where either A or B is in the multiplicative unit
-   group (``is_multiplicative_unit`` returns True) are skipped. The
-   unit group is broader than the identity: a length-1 object with
-   UNIT payload and face bit f=1 is self-inverse, so admitting it as
-   a factor would mark every length-at-least-2 product as composite via
-   a trivial sign flip. Filtering the full unit group is what makes
-   SEQ-PRIME a meaningful predicate.
-
-Loop ordering
--------------
-Non-left-singleton factorisations are tried first: p = 2..n. This
-includes the right-singleton edge p = n, q = 1. The p=1 left-singleton
-case is appended at the end. This ordering matters: for p=1 with
-S_A=[None], solve_payload_system always finds a consistent solution
-(S_B = P's payload row) via the face-flip path. If p=1 were tried
-first it would preempt intended p>=2 factorisations for objects whose
-left factor has length at least 2. For n=1 there are no non-trivial
-splits.
-
-Soundness
----------
-    Unconditional (Theorem 8b): `factor_search_v08` returns `(A, B)` only
-    when `multiply(A, B) == P`. Verified at step 5.
-
-Completeness (Theorem N)
-------------------------
-    If the catalogue C contains every payload appearing recursively in
-    some valid non-multiplicative-unit (A, B) with multiply(A, B) = P,
-    then factor_search_v08(P, C) returns valid factors.
-
-    In practice:
-      - depth-2 targets: C = generate_payload_catalogue() (Lemma 7;
-        depth-1 oracle atoms cover all payloads of depth-2 factors).
-      - depth-3 asymmetric (depth-3 x depth-<=2): extend C with the
-        depth-2 payloads of the depth-3 factor (Theorem 9; 6/6 empirical
-        SUCCESS in milliseconds with minimal catalogues).
-      - depth-k targets: extend C to include depth-(k-1) payloads of the
-        factors. No depth-conditional algorithm changes needed.
-
-    SEQ-PRIME is returned when no non-trivial factorization exists whose
-    payloads are all in C.
+``factor_search_v08`` preserves the legacy tuple-or-``SEQ-PRIME`` API.
+``factor_search_report`` runs the same search while recording what was
+supplied, what was actually searched after pruning and normalization, and
+whether the finite search boundary was exhausted. The report is provenance,
+not a primality certificate.
 """
 
 from __future__ import annotations
@@ -76,38 +16,171 @@ from __future__ import annotations
 # id: ucns_factor_search_v08
 #   module_name: factor_search_v08
 #   module_kind: engine
-#   summary: Top-level witness-matrix recursive quotient solver; factor_search_v08(P) returns recovered factors (A, B) or the SEQ-PRIME sentinel.
+#   summary: Exhaustive catalogue-bounded factorization with a compatibility sentinel API and a provenance-bearing search report that makes no certification claim.
 #   owner: Erin Spencer
-#   public_surface: factor_search_v08
-#   internal_surface: none
+#   public_surface: factor_search_v08, factor_search_report, FactorSearchReport, payload_catalogue_fingerprint
+#   internal_surface: _prepare_search_catalogues, _search_exhaustive
 #   auth_boundary: none
 #   storage_boundary: none
 #   network_boundary: none
 #   user_data_boundary: none
 #   admin_only: false
-#   tests: ucns.tests.test_depth2_oracle
-#   rollout: default_enabled
-#   rollback: remove module and its re-exports
-#   requires: ucns_canonical, ucns_domains, ucns_host_recovery, ucns_payload_system, ucns_witness_matrix
+#   tests: tests/test_exhaustive_factor_search.py, tests/test_factor_search_provenance.py, tests/test_certified_negative_results.py, ucns_recursive/tests/test_depth2_oracle.py
+#   rollout: factor_search_v08 unchanged; factor_search_report additive
+#   rollback: remove report API while retaining factor_search_v08 and _search_exhaustive
+#   requires: ucns_canonical, ucns_domains, ucns_host_recovery, ucns_payload_system, ucns_witness_matrix, ucns_serialization, ucns_carrier_support_pruning
 #   since: 2026-06-02
-#   unresolved: none
+#   unresolved: negative-result certification lives only in ucns.factorization_result
 # === END MODULE_BUILD ===
 
+import hashlib
+from dataclasses import dataclass
 from typing import List, Optional, Tuple, Union
 
-from .catalogue_pruning import prune_payload_catalogue
-from .canonical import UCNSObject, multiply, is_multiplicative_unit
+from .catalogue_pruning import (
+    PAYLOAD_PRUNING_PRESERVES_COVERAGE,
+    PAYLOAD_PRUNING_RULE_NAME,
+    PAYLOAD_PRUNING_RULE_VERSION,
+    prune_payload_catalogue,
+)
+from .canonical import UCNSObject, is_multiplicative_unit, multiply
 from .domains import generate_payload_catalogue
-from .host_recovery import recover_host_angles, recover_face_structures
-from .payload_system import solve_payload_system
+from .host_recovery import recover_face_structures, recover_host_angles
+from .payload_system import (
+    iter_payload_system_solutions,
+    normalize_payload_catalogue,
+)
+from .serialization import stable_hash
 from .witness_matrix import build_witness_matrix
 
-__all__ = ["factor_search_v08"]
+__all__ = [
+    "FactorSearchReport",
+    "factor_search_report",
+    "factor_search_v08",
+    "payload_catalogue_fingerprint",
+]
 
-# Return type: either a factor pair or the primality sentinel
-FactorResult = Union[Tuple[UCNSObject, UCNSObject], str]
-
+FactorPair = Tuple[UCNSObject, UCNSObject]
+FactorResult = Union[FactorPair, str]
+PreparedCatalogues = Tuple[
+    str,
+    List[Optional[UCNSObject]],
+    List[Optional[UCNSObject]],
+]
 SEQ_PRIME = "SEQ-PRIME"
+
+
+def payload_catalogue_fingerprint(
+    catalogue: List[Optional[UCNSObject]],
+) -> str:
+    """Return an order- and duplicate-sensitive catalogue digest.
+
+    The fingerprint identifies the exact sequence passed to this function.
+    ``None`` receives an explicit unit marker; non-unit entries are represented
+    by their canonical stable hashes. Length prefixes prevent concatenation
+    ambiguity.
+    """
+    digest = hashlib.sha256()
+    digest.update(b"ucns-payload-catalogue-fingerprint-v1\x00")
+    digest.update(len(catalogue).to_bytes(8, "big"))
+    for entry in catalogue:
+        token = (
+            b"unit"
+            if entry is None
+            else b"object:" + stable_hash(entry).encode("ascii")
+        )
+        digest.update(len(token).to_bytes(4, "big"))
+        digest.update(token)
+    return digest.hexdigest()
+
+
+@dataclass(frozen=True)
+class FactorSearchReport:
+    """Outcome and exact search-boundary provenance.
+
+    ``search_exhausted`` means the solver tried every host split, normalized
+    payload assignment, and face assignment in the effective catalogue and
+    found no factor pair. It does not establish that the supplied catalogue
+    covers any mathematical domain, and it does not certify primality.
+
+    Any exception propagates instead of producing a report. There is no
+    truncation or hidden solution limit in this search path.
+    """
+
+    result_kind: str
+    factors: Optional[FactorPair]
+    search_exhausted: bool
+    catalogue_source: str
+    supplied_catalogue_size: int
+    supplied_catalogue_fingerprint: str
+    effective_catalogue_size: int
+    effective_catalogue_fingerprint: str
+    pruning_applied: bool
+    pruning_rule: str
+    pruning_rule_version: str
+    truncation_occurred: bool
+    # Default preserves compatibility for callers constructing the older
+    # provenance record positionally. Reports produced here always fill it.
+    pruning_preserves_coverage: bool = False
+
+
+def _prepare_search_catalogues(
+    P: UCNSObject,
+    catalogue: Optional[List[Optional[UCNSObject]]],
+    prune: bool,
+) -> PreparedCatalogues:
+    """Return source, raw supplied sequence, and exact searched sequence."""
+    source = "default-canonical" if catalogue is None else "caller"
+    supplied = (
+        generate_payload_catalogue()
+        if catalogue is None
+        else list(catalogue)
+    )
+    pruned = (
+        prune_payload_catalogue(P, supplied)
+        if prune
+        else list(supplied)
+    )
+    effective = normalize_payload_catalogue(pruned)
+    return source, supplied, effective
+
+
+def factor_search_report(
+    P: UCNSObject,
+    catalogue: Optional[List[Optional[UCNSObject]]] = None,
+    prune: bool = True,
+) -> FactorSearchReport:
+    """Run factor search and describe the exact finite boundary searched.
+
+    The supplied fingerprint records the caller/default list before any
+    transformation. The effective fingerprint records the exact sequence
+    enumerated after optional pruning, implicit unit insertion, and structural
+    deduplication. This function provides evidence only; it does not label a
+    negative result certified or absolute.
+    """
+    source, supplied, effective = _prepare_search_catalogues(
+        P, catalogue, prune
+    )
+    factors = _search_exhaustive(P, effective)
+    exhausted = factors is None
+
+    return FactorSearchReport(
+        result_kind=SEQ_PRIME if exhausted else "FACTORS",
+        factors=factors,
+        search_exhausted=exhausted,
+        catalogue_source=source,
+        supplied_catalogue_size=len(supplied),
+        supplied_catalogue_fingerprint=payload_catalogue_fingerprint(supplied),
+        effective_catalogue_size=len(effective),
+        effective_catalogue_fingerprint=payload_catalogue_fingerprint(effective),
+        pruning_applied=prune,
+        pruning_rule=PAYLOAD_PRUNING_RULE_NAME if prune else "",
+        pruning_rule_version=PAYLOAD_PRUNING_RULE_VERSION if prune else "",
+        truncation_occurred=False,
+        pruning_preserves_coverage=(
+            PAYLOAD_PRUNING_PRESERVES_COVERAGE if prune else True
+        ),
+    )
 
 
 def factor_search_v08(
@@ -115,97 +188,72 @@ def factor_search_v08(
     catalogue: Optional[List[Optional[UCNSObject]]] = None,
     prune: bool = True,
 ) -> FactorResult:
-    """Search for a non-trivial factorisation P = A then B.
+    """Return one exact non-trivial factorization, else ``SEQ-PRIME``.
 
-    Parameters
-    ----------
-    P:
-        The UCNS object to factor.
-    catalogue:
-        Payload candidates to use. If ``None`` the frozen-domain
-        catalogue from ``domains.generate_payload_catalogue`` is used.
-        For depth-3+ targets, extend this catalogue with the depth-2+
-        payloads of the expected factors (see Theorem N in
-        ``ucns-theorem-n.md``).
-    prune:
-        When True (default), apply Carrier-LCM-Law payload pruning
-        (``catalogue_pruning.prune_payload_catalogue``, Corollary 2 in
-        ``docs/carrier-support-pruning.md``): candidates whose carrier
-        prime support escapes the union of P's payload-carrier supports
-        cannot serve as factor payloads and are dropped before search.
-        Sound - completeness is unchanged. Pass ``prune=False`` to
-        search the catalogue verbatim.
-
-    Returns
-    -------
-    ``(A, B)`` if a non-trivial factorisation is found, otherwise the
-    string sentinel ``"SEQ-PRIME"``.
-
-    **Non-uniqueness:** the returned pair is the *first* valid
-    factorisation found under the current loop ordering (non-left-
-    singleton splits p >= 2 first, p = 1 last). Multiple valid
-    factorisations may exist for the same ``P``; no canonical choice is
-    made. Use ``store.factor_decompose`` with an explicit catalogue to
-    enumerate all catalogue-bounded factorisations.
+    The legacy API uses the same prepared effective catalogue as
+    :func:`factor_search_report` but does not compute provenance fingerprints.
+    ``SEQ-PRIME`` remains catalogue-relative and carries no certification
+    through this raw surface.
     """
-    if catalogue is None:
-        catalogue = generate_payload_catalogue()
-    if prune:
-        catalogue = prune_payload_catalogue(P, catalogue)
+    _, _, effective = _prepare_search_catalogues(P, catalogue, prune)
+    factors = _search_exhaustive(P, effective)
+    return factors if factors is not None else SEQ_PRIME
 
+
+def _search_exhaustive(
+    P: UCNSObject,
+    catalogue: List[Optional[UCNSObject]],
+) -> Optional[FactorPair]:
+    """Return the first exact pair or ``None`` after finite exhaustion."""
     n = len(P.A_plus)
 
-    # Try non-left-singleton factorisations first, including the
-    # right-singleton edge p=n, q=1, then the single-cell left factor
-    # p=1 as an explicit fallback. See the module docstring for why
-    # p=1 must remain last.
+    # Prefer non-left-singleton splits so p=1 does not preempt larger factors.
+    # Always include p=1: for n=1 it is the only split and may contain two
+    # recursive non-unit factors.
     split_candidates = list(range(2, n + 1))
-    if n >= 2:
-        split_candidates.append(1)
+    split_candidates.append(1)
 
     for p in split_candidates:
         if n % p != 0:
             continue
         q = n // p
 
-        # --- 1. Host recovery ---
         A_angles, B_angles = recover_host_angles(P, p, q)
-
-        # --- 2. Payload system ---
-        P_payloads = [
-            [P.A_plus[k * q + j][1] for j in range(q)]
-            for k in range(p)
-        ]
-        payload_result = solve_payload_system(P_payloads, p, q, catalogue)
-        if payload_result is None:
-            continue
-        S_A, S_B = payload_result
-
-        # --- 3. Witness-matrix consistency check ---
-        wm = build_witness_matrix(S_A, S_B, P_payloads)
-        if not wm.globally_consistent():
-            continue
-
-        # --- 4. Face recovery ---
         face_options = recover_face_structures(P, p, q)
         if not face_options:
             continue
 
-        # --- 5. Exact recomposition verification ---
-        for A_faces, B_faces in face_options:
-            A_cand = UCNSObject(
-                P.n_dec, P.n_min,
-                list(zip(A_angles, S_A)),
-                A_faces,
-            )
-            B_cand = UCNSObject(
-                P.n_dec, P.n_min,
-                list(zip(B_angles, S_B)),
-                B_faces,
-            )
-            if is_multiplicative_unit(A_cand) or is_multiplicative_unit(B_cand):
-                continue
-            if multiply(A_cand, B_cand) == P:
-                return A_cand, B_cand
+        P_payloads = [
+            [P.A_plus[k * q + j][1] for j in range(q)]
+            for k in range(p)
+        ]
 
-    return SEQ_PRIME
+        for S_A, S_B in iter_payload_system_solutions(
+            P_payloads, p, q, catalogue
+        ):
+            witness_matrix = build_witness_matrix(S_A, S_B, P_payloads)
+            if not witness_matrix.globally_consistent():
+                continue
+
+            for A_faces, B_faces in face_options:
+                A_candidate = UCNSObject(
+                    P.n_dec,
+                    P.n_min,
+                    list(zip(A_angles, S_A)),
+                    A_faces,
+                )
+                B_candidate = UCNSObject(
+                    P.n_dec,
+                    P.n_min,
+                    list(zip(B_angles, S_B)),
+                    B_faces,
+                )
+                if (
+                    is_multiplicative_unit(A_candidate)
+                    or is_multiplicative_unit(B_candidate)
+                ):
+                    continue
+                if multiply(A_candidate, B_candidate) == P:
+                    return A_candidate, B_candidate
+
+    return None
