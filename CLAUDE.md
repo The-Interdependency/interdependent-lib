@@ -93,7 +93,7 @@ pip install "interdependent-lib[all]"
 
 # Individual libraries
 pip install "interdependent-lib[pcea]"
-pip install "interdependent-lib[ptca]"
+pip install "interdependent-lib[ptcna]"
 pip install "interdependent-lib[ucns]"
 pip install "interdependent-lib[aimmh]"
 
