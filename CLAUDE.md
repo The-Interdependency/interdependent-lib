@@ -74,7 +74,7 @@ tests/                  pytest suite
 docs/                   Operational notes / handoffs (UCNS-related)
 .agents/skills/         Repo-local agent skills (hmmm, meta-module-build, test-build, msdmd)
 .github/workflows/
-  sync-libs.yml         Manual + active-cron workflow mirroring a subset of upstream libs into libs/<name>/src (pcea/ptca/ucns/pcna/aimmh; NOT zfae)
+  sync-libs.yml         Manual + active-cron workflow mirroring a subset of upstream libs into libs/<name>/src (pcea/ptcna/ucns/aimmh; NOT zfae or metapat)
 pyproject.toml          Meta-package config — source of truth for metadata + optional extras
 COPILOT.md              Org-wide best practices (Copilot, git, CI, docs, security)
 CONTRIBUTING.md         Contribution guidelines
