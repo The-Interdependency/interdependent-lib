@@ -98,12 +98,12 @@ interdependent-lib/
 │   └── __init__.py
 └── libs/                   ← per-library documentation and stubs
     ├── README.md
-    ├── pcna/
+    ├── aimmh/
+    ├── metapat/
     ├── pcea/
-    ├── ptca/
+    ├── ptcna/
     ├── ucns/
-    ├── zfae/
-    └── aimmh/
+    └── zfae/
 ```
 
 ---
