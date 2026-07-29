@@ -59,12 +59,21 @@ not differentiate. This matches the core layer's frozen gradient policy:
 differentiability descends through scalar payloads only; the `⊠` composition
 operator never appears on the autodiff tape (`∂(⊠)` is never taken). So
 "training" happens in the neural layer; circle/seed/core *audit and time*.
+`ptcna.neural.NeuralScalar` is the sole reverse-mode scalar, while the shared
+`ptcna.circle.CircleTensor` is carried unchanged through seed and core
+composition.
 
 **2. PCEA is not a layer of the stack.** PCEA (Prime Circular Encryption
 Algorithm) is the **guardian**: it applies "last state as key for this state"
 encryption at **every layer** for privacy, and is **orthogonal** to the
 neural→core chain. PCEA joins the family only at the meta-package level; it is
 never folded *into* `ptcna`.
+
+**3. UCNS and EDCM remain external authorities.** PTCNA's UCNS integration is
+typed and suspended until a reviewed PTCNA-specific higher-gonol producer
+profile exists; local identities make no UCNS representation claim. EDCM
+measurements enter Zeta only through an explicitly injected external provider.
+PTCNA does not ship a shadow EDCM implementation.
 
 ---
 
@@ -89,7 +98,7 @@ gradient. The fiq substrate lives in `ptcna.core.prime_core` (see its `fiq.py`).
 
 | Member | PyPI | In `interdependent-lib` |
 |--------|------|--------------------------|
-| `ptcna` (neural/circle/seed/core) | **published** (`ptcna>=0.1.0`) | `ptcna` extra (+ `all`); registry key `ptcna` |
+| `ptcna` (neural/circle/seed/core) | **published** (`ptcna>=0.1.1`) | `ptcna` extra (+ `all`); registry key `ptcna` |
 | `pcea` (`pcea`) | published | `pcea` extra (+ `all`) |
 | `ucns` (`ucns`) | published | `ucns` extra (+ `all`) |
 | `aimmh` (`aimmh-lib`) | published | `aimmh` extra (+ `all`) |

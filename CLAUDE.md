@@ -6,7 +6,7 @@ This file gives AI assistants context needed to work effectively in this reposit
 
 ## What This Repo Is
 
-`interdependent-lib` (pip package: **`interdependent-lib`**, v0.1.2) is a **unified PyPI meta-package** that bundles the four-letter and five-letter acronym libraries of [The Interdependency](https://github.com/The-Interdependency) into a single installable collection.
+`interdependent-lib` (pip package: **`interdependent-lib`**, v0.1.4) is a **unified PyPI meta-package** that bundles the four-letter and five-letter acronym libraries of [The Interdependency](https://github.com/The-Interdependency) into a single installable collection.
 
 This repo holds **no primary sub-library code** — each acronym library lives in its own source repo. What this repo *does* provide:
 - The `interdependent_lib` top-level package, which exposes:
@@ -26,7 +26,7 @@ Verified against `[project.optional-dependencies]` in `pyproject.toml`.
 
 | Acronym | PyPI / requirement | Extra | Status | Description |
 |---------|--------------------|-------|--------|-------------|
-| PTCNA | `ptcna>=0.1.0`    | `ptcna` | Packaged | Prime Tensor Circled Neural Architecture — one repo, four layers (neural/circle/seed/core). **Consolidates the former PCNA/PCTA/PCSA.** See `docs/prime-tensor-stack.md` |
+| PTCNA | `ptcna>=0.1.1`    | `ptcna` | Packaged | Prime Tensor Circled Neural Architecture — one repo, four layers (neural/circle/seed/core). **Consolidates the former PCNA/PCTA/PCSA.** See `docs/prime-tensor-stack.md` |
 | PCEA  | `pcea>=0.1.0`     | `pcea`  | Packaged | Prime Circular Encryption Algorithm (guardian — "last state as key" at every layer; orthogonal to the stack) |
 | UCNS  | `ucns>=0.9.1`     | `ucns`  | Packaged | Unit Circle Number System; Python runtime stdlib-only; upstream formal scaffold is Mathlib-backed |
 | AIMMH | `aimmh-lib>=1.1.0`| `aimmh` | Packaged | AI Multimodel Multimodal Hub (five-letter) |
@@ -37,6 +37,10 @@ The prime-tensor stack is now the single `ptcna` package — neural (the only
 back-propagating layer) + circle/seed/core (auditing/timing tensors). PCEA is the
 orthogonal guardian; ZFAE is the conceptual inference cap (runtime in `a0`). The
 canonical role-and-boundary map is `docs/prime-tensor-stack.md`.
+
+The `ptcna>=0.1.1` floor is required: it supplies the shared circle primitive,
+neural-owned gradient scalar, typed suspended UCNS boundary, and removal of the
+in-package EDCM shadow.
 
 The `all` extra installs the four packaged libraries together (pcea, ucns,
 aimmh, ptcna). `dev` installs `pytest>=8.0`, `build`, and `twine`. The single

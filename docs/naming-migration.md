@@ -74,7 +74,7 @@ Architecture** (`The-Interdependency/ptcna`), with four layer modules:
 So `pcsa` (the earlier `PTCA → pcsa` target), `pcta`, and `pcna` are absorbed;
 the standalone repos are archived. `pcea` stays separate (orthogonal guardian).
 In this aggregator: a single `ptcna` registry key + a single `ptcna` extra
-(`ptcna>=0.1.0`, published to PyPI 2026-07) replace all of them; the once-planned
+(`ptcna>=0.1.1`, repaired runtime floor) replace all of them; the once-planned
 `prime-stack` extra is obsolete; the previously-published core-layer dist is
 superseded. `ucns` remains frozen; `metapat` (FLAR) and `zfae` (conceptual) are
 unaffected.
