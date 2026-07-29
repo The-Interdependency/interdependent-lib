@@ -83,6 +83,10 @@ See `libs/` for per-library documentation and source links:
 - [`libs/aimmh/`](libs/aimmh/README.md) — AIMMH (five-letter)
 - [`libs/metapat/`](libs/metapat/README.md) — METAPAT (FLAR)
 
+Archived predecessors (edcmbone, pcna, pcta, pcsa, a0replite) are listed with
+their successors in [`docs/archive-registry.md`](docs/archive-registry.md) —
+read-only ancestors; do not build against them.
+
 ---
 
 ## Repository Structure
