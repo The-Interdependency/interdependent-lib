@@ -72,6 +72,7 @@ tests/                  pytest suite
   test_hmmm_skill.py           Contract tests for the repo-local hmmm skill
 
 docs/                   Operational notes / handoffs (UCNS-related)
+  archive-registry.md   Canonical list of archived org repos and their successors (add a row when archiving)
 .agents/skills/         Repo-local agent skills (hmmm, meta-module-build, test-build, msdmd)
 .github/workflows/
   sync-libs.yml         Manual + active-cron workflow mirroring a subset of upstream libs into libs/<name>/src (pcea/ptcna/ucns/aimmh; NOT zfae or metapat)
