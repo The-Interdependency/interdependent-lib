@@ -56,8 +56,21 @@ def test_ptcna_extra_pins_published_dist_and_ptca_lib_gone():
     part of `all`. The superseded ptca-lib dist must not be pinned anywhere."""
     text = _pyproject_text()
     assert "ptca-lib" not in text, "ptca-lib is superseded by the ptcna consolidation"
-    assert 'ptcna = ["ptcna>=0.1.0"]' in text, "ptcna extra must pin the published dist"
-    assert text.count('"ptcna>=0.1.0"') >= 2, "ptcna must also appear in the `all` extra"
+    assert 'ptcna = ["ptcna>=0.1.1"]' in text, "ptcna extra must pin the repaired runtime"
+    assert text.count('"ptcna>=0.1.1"') >= 2, "ptcna must also appear in the `all` extra"
+    assert "ptcna>=0.1.0" not in text
+
+
+def test_ptcna_floor_is_visible_in_canonical_docs():
+    for relative in (
+        "README.md",
+        "CLAUDE.md",
+        "docs/dependency-policy.md",
+        "docs/prime-tensor-stack.md",
+        "libs/ptcna/README.md",
+    ):
+        text = (ROOT / relative).read_text(encoding="utf-8")
+        assert "ptcna>=0.1.1" in text, f"{relative} must name the runtime floor"
 
 
 def test_metapat_registered_with_unique_import_target_and_no_extra():

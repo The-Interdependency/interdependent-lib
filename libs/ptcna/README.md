@@ -2,7 +2,7 @@
 
 **Source repo:** [The-Interdependency/ptcna](https://github.com/The-Interdependency/ptcna)
 **Language:** Python 3.10+
-**PyPI:** *(not yet published — source-only until it ships)*
+**PyPI:** `ptcna>=0.1.1`
 **Consolidates:** the former `pcna`, `pcta`, and `pcsa` repos.
 
 ---
@@ -24,12 +24,16 @@ Every circle, seed, and core is itself a tensor. Back-propagation lives only in
 the neural layer; the other three are auditing/timing tensors. See the canonical
 [prime-tensor stack map](../../docs/prime-tensor-stack.md).
 
+The `0.1.1` runtime uses one shared `CircleTensor` across structural layers and
+keeps reverse-mode state in `ptcna.neural.NeuralScalar`. UCNS integration is
+typed and suspended pending the exact producer profile. EDCM measurements are
+external inputs; PTCNA ships no shadow EDCM module.
+
 ## Status in the bundle
 
 - Registered in `interdependent_lib._REGISTRY` as `ptcna` → import name `ptcna`.
-- **No extra yet** — per `docs/dependency-policy.md`, libraries enter
-  `[project.optional-dependencies]` only after a stable PyPI release. A single
-  `ptcna` extra replaces the former `pcna`/`pcta`/`pcsa` intent once it ships.
+- The `ptcna` extra pins `ptcna>=0.1.1` and replaces the former
+  `pcna`/`pcta`/`pcsa` intent.
 - The previously-published core-layer dist is superseded by this consolidation.
 
 ## Boundary

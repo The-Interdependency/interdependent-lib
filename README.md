@@ -34,7 +34,7 @@ pip install interdependent-lib
 pip install interdependent-lib[pcea]
 pip install interdependent-lib[ucns]   # ucns>=0.9.1
 pip install interdependent-lib[aimmh]
-pip install interdependent-lib[ptcna]  # the consolidated prime-tensor stack
+pip install interdependent-lib[ptcna]  # ptcna>=0.1.1; repaired four-layer runtime
 
 # Install everything
 pip install interdependent-lib[all]
@@ -69,6 +69,11 @@ neural tensors ─(circle layer)─► circles ─(seed layer)─► seeds ─(c
     fiqs gate core internal propagation per Fick's law (J = −D ∇φ)
 PCEA — guardian: "last state as key for this state" at every layer (orthogonal; not a layer)
 ```
+
+The `0.1.1` runtime uses one shared circle type, keeps reverse-mode gradients
+owned by the neural layer, reports UCNS integration as typed and suspended, and
+consumes EDCM measurements only through an explicitly injected external
+provider.
 
 ---
 

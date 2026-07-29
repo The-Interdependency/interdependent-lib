@@ -24,12 +24,15 @@ Current packaged extras:
 - `pcea` -> `pcea>=0.1.0`
 - `ucns` -> `ucns>=0.9.1`
 - `aimmh` -> `aimmh-lib>=1.1.0`
-- `ptcna` -> `ptcna>=0.1.0`
+- `ptcna` -> `ptcna>=0.1.1`
 
 The prime-tensor stack (`pcna` / `pcta` / `pcsa`) is consolidated into the single
 `ptcna` package, now published to PyPI and pinned by the `ptcna` extra (replacing
 the former per-repo intent and the once-planned `prime-stack` extra). The
 previously-published core-layer dist is superseded and no longer pinned.
+The `0.1.1` floor is the first release with one shared circle type,
+neural-owned gradient state, a typed suspended UCNS boundary, and no shadow
+EDCM implementation.
 
 The `all` extra is the union of packaged extras only. Source-only libraries do
 not enter `all` until they have stable package releases.
