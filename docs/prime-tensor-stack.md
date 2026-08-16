@@ -100,7 +100,7 @@ gradient. The fiq substrate lives in `ptcna.core.prime_core` (see its `fiq.py`).
 |--------|------|--------------------------|
 | `ptcna` (neural/circle/seed/core) | **published** (`ptcna>=0.1.1`) | `ptcna` extra (+ `all`); registry key `ptcna` |
 | `pcea` (`pcea`) | published | `pcea` extra (+ `all`) |
-| `ucns` (`ucns`) | published | `ucns` extra (+ `all`) |
+| `ucns` (`ucns`) | source-only current producer | no extra; former convergence edge deprecated |
 | `aimmh` (`aimmh-lib`) | published | `aimmh` extra (+ `all`) |
 | `zfae` | **source-only** (runtime in `a0`) | registry key only; conceptual, no dist planned |
 

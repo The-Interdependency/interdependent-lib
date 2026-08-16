@@ -38,7 +38,8 @@ Check that meaningful dependency floors appear in both the direct extra and the
 `all` extra. Today the most important floor is UCNS:
 
 ```sh
-grep -n 'ucns>=0.9.1' pyproject.toml README.md libs/ucns/README.md
+! grep -n 'ucns>=' pyproject.toml
+grep -n 'UCNS convergence edge is \*\*DEPRECATED\*\*' README.md
 ```
 
 Do not add Lean, Mathlib, model clients, GPU libraries, or network SDKs to the
@@ -57,7 +58,7 @@ The tests must at least guard:
 - `available()` returns stable keys and booleans;
 - the prime-tensor stack is a single `ptcna` registry key (the former
   pcna/pcta/pcsa keys are gone) and carries no extra until it publishes;
-- UCNS dependency floor remains present in both `ucns` and `all` extras;
+- deprecated UCNS dependency pins remain absent from every extra;
 - README mentions the UCNS floor when the floor is meaningful.
 
 ## 5. Build artifacts

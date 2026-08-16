@@ -84,13 +84,14 @@ def test_metapat_registered_with_unique_import_target_and_no_extra():
     )
 
 
-def test_ucns_dependency_floor_is_locked_in_ucns_and_all_extras():
+def test_deprecated_ucns_convergence_edge_is_absent_from_extras():
     text = _pyproject_text()
-    assert 'ucns  = ["ucns>=0.9.1"]' in text
-    assert '"ucns>=0.9.1"' in text
-    assert "ucns>=0.8.0" not in text
+    assert 'ucns  = [' not in text
+    assert '"ucns>=' not in text
+    assert interdependent_lib._REGISTRY["ucns"] == "ucns"
 
 
-def test_readme_mentions_ucns_floor():
+def test_readme_marks_ucns_convergence_deprecated():
     text = README.read_text(encoding="utf-8")
-    assert "ucns>=0.9.1" in text
+    assert "UCNS convergence edge is **DEPRECATED**" in text
+    assert "no `ucns` extra" in text

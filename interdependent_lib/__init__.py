@@ -7,7 +7,6 @@ Importing this package does **not** require any sub-library to be installed.
 Each sub-library is an optional dependency — install the extras you need:
 
     pip install interdependent-lib[pcea]
-    pip install interdependent-lib[ucns]
     pip install interdependent-lib[aimmh]
     pip install interdependent-lib[ptcna]
     pip install interdependent-lib[all]
@@ -20,7 +19,7 @@ docs/naming-migration.md.
 
 from __future__ import annotations
 
-__version__ = "0.1.4"
+__version__ = "0.1.5"
 __author__ = "Erin Patrick Spencer"
 __email__ = "wayseer@interdependentway.org"
 __license__ = "MPL-2.0"
@@ -45,6 +44,8 @@ _REGISTRY: dict[str, str | None] = {
     "ptcna": "ptcna",        # Prime Tensor Circled Neural Architecture
     # Standalone libraries
     "pcea": "pcea",          # encryption guardian — orthogonal to the stack
+    # Source-only current producer. The former ucns>=0.9.1 extra is deprecated
+    # because it excludes the current definition-first producer (0.0.0.dev0).
     "ucns": "ucns",
     "zfae": "zfae",          # conceptual; runtime lives in a0 (source-only)
     # Five-letter acronym libraries

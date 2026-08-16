@@ -9,6 +9,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Removed
+- **Deprecated UCNS convergence edge.** Removed `ucns>=0.9.1` from the `ucns`
+  and `all` extras because it excludes the current definition-first producer
+  `ucns@0.0.0.dev0`. UCNS remains a source-only availability key. No
+  replacement extra is selected.
+
 ### Added
 - **`ptcna` extra** (`ptcna>=0.1.1`) now that the consolidated prime-tensor stack
   is published to PyPI; also added to the `all` extra. Docs (pyproject comment,

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "interdependent-lib"
-version = "0.1.4"
+version = "0.1.5"
 description = "Unified meta-package combining the four-letter and five-letter acronym libraries of The Interdependency"
 readme = "README.md"
 license = { text = "MPL-2.0" }
@@ -18,7 +18,6 @@ dependencies = []
 [project.optional-dependencies]
 # Standalone libraries
 pcea  = ["pcea>=0.1.0"]
-ucns  = ["ucns>=0.9.1"]
 
 # Five-letter acronym libraries
 aimmh = ["aimmh-lib>=1.1.0"]
@@ -31,7 +30,6 @@ ptcna = ["ptcna>=0.1.1"]
 # Install all packaged libraries at once
 all = [
     "pcea>=0.1.0",
-    "ucns>=0.9.1",
     "aimmh-lib>=1.1.0",
     "ptcna>=0.1.1",
 ]

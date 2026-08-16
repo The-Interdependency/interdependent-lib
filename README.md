@@ -10,7 +10,13 @@
 
 ## Overview
 
-`interdependent-lib` is the convergence point for the mathematical and AI orchestration libraries developed under The Interdependency. Installing this package makes each sub-library available in a single step.
+`interdependent-lib` coordinates the currently package-compatible mathematical
+and AI orchestration libraries developed under The Interdependency. Installing
+an extra makes only that declared library available.
+
+The former UCNS convergence edge is **DEPRECATED**: `ucns>=0.9.1` excludes the
+current definition-first producer `ucns@0.0.0.dev0`. UCNS remains visible as a
+source-only registry entry, but no `ucns` extra or `all` dependency is emitted.
 
 ### Included Libraries
 
@@ -18,7 +24,7 @@
 |---------|-----------|---------|-------------|
 | [PTCNA](libs/ptcna/README.md) | Prime Tensor Circled Neural Architecture | — | The prime-tensor stack, consolidated into one repo, four layers (neural/circle/seed/core). Supersedes the former PCNA/PCTA/PCSA |
 | [PCEA](libs/pcea/README.md) | Prime Circular Encryption Algorithm | 4 | Neural architecture state encryption ("last state as key") at every layer; orthogonal guardian |
-| [UCNS](libs/ucns/README.md) | Unit Circle Number System | 4 | Recursive factorization theory, witness-matrix quotient solver, A0-safe factorization envelopes, and Mathlib-backed formal scaffold upstream |
+| [UCNS](libs/ucns/README.md) | Unit Circle Number System | 4 | Source-only current producer; convergence extra deprecated pending a compatible release |
 | [ZFAE](libs/zfae/README.md) | Zeta Function Alpha Echo | 4 | Inference engine (conceptual; runtime in `a0`) — reads neural weights + circles / seeds / cores as phase-harmonic propagation |
 | [AIMMH](libs/aimmh/README.md) | AI Multimodel Multimodal Hub | 5 | Zero-dependency async multi-model conversation orchestration |
 
@@ -32,11 +38,10 @@ pip install interdependent-lib
 
 # Install only specific libraries
 pip install interdependent-lib[pcea]
-pip install interdependent-lib[ucns]   # ucns>=0.9.1
 pip install interdependent-lib[aimmh]
 pip install interdependent-lib[ptcna]  # ptcna>=0.1.1; repaired four-layer runtime
 
-# Install everything
+# Install every currently compatible packaged library
 pip install interdependent-lib[all]
 ```
 

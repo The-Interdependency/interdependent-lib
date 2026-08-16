@@ -22,9 +22,13 @@ stable PyPI package and a stable import name.
 Current packaged extras:
 
 - `pcea` -> `pcea>=0.1.0`
-- `ucns` -> `ucns>=0.9.1`
 - `aimmh` -> `aimmh-lib>=1.1.0`
 - `ptcna` -> `ptcna>=0.1.1`
+
+The former `ucns>=0.9.1` extra is **DEPRECATED and removed** because it
+excludes the current definition-first producer `ucns@0.0.0.dev0`. UCNS remains
+a source-only registry entry until a stable compatible package and option
+profile exist.
 
 The prime-tensor stack (`pcna` / `pcta` / `pcsa`) is consolidated into the single
 `ptcna` package, now published to PyPI and pinned by the `ptcna` extra (replacing
@@ -67,7 +71,7 @@ to `interdependent-lib` or to the Python `ucns` runtime dependency set.
 The test suite should guard:
 
 - package `__version__` matches `pyproject.toml`;
-- UCNS dependency floor remains current in both `ucns` and `all` extras;
+- deprecated UCNS dependency pins remain absent from every extra;
 - source-only libraries with generic names do not false-positive in `available()`;
 - user-facing docs mention dependency floors when those floors are meaningful.
 

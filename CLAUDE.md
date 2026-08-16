@@ -28,7 +28,7 @@ Verified against `[project.optional-dependencies]` in `pyproject.toml`.
 |---------|--------------------|-------|--------|-------------|
 | PTCNA | `ptcna>=0.1.1`    | `ptcna` | Packaged | Prime Tensor Circled Neural Architecture — one repo, four layers (neural/circle/seed/core). **Consolidates the former PCNA/PCTA/PCSA.** See `docs/prime-tensor-stack.md` |
 | PCEA  | `pcea>=0.1.0`     | `pcea`  | Packaged | Prime Circular Encryption Algorithm (guardian — "last state as key" at every layer; orthogonal to the stack) |
-| UCNS  | `ucns>=0.9.1`     | `ucns`  | Packaged | Unit Circle Number System; Python runtime stdlib-only; upstream formal scaffold is Mathlib-backed |
+| UCNS  | none              | `ucns`  | Source-only | Former convergence edge deprecated; current producer is definition-first `0.0.0.dev0` |
 | AIMMH | `aimmh-lib>=1.1.0`| `aimmh` | Packaged | AI Multimodel Multimodal Hub (five-letter) |
 | ZFAE  | —                 | —       | Conceptual (runtime lives in `a0`; no dist planned) | Zeta Function Alpha Echo (inference engine) |
 | METAPAT | —               | —       | FLAR; registered, not yet on PyPI | Meta Energy Theory — Axioms, Postulates, And Theorems (first-letter acronym repo; canon + unpublished `metapat` 0.0.1 src-layout package) |
@@ -99,7 +99,6 @@ pip install "interdependent-lib[all]"
 # Individual libraries
 pip install "interdependent-lib[pcea]"
 pip install "interdependent-lib[ptcna]"
-pip install "interdependent-lib[ucns]"
 pip install "interdependent-lib[aimmh]"
 
 # Dev tooling (pytest, build, twine)
@@ -136,7 +135,9 @@ twine upload dist/*
 - **Meta-package model.** The repo is an aggregator. Sub-library code is owned by
   the individual source repos; here they are wired in only as optional extras in
   `pyproject.toml`. Installing this package never forces a sub-library to be present.
-- **UCNS boundary.** `interdependent-lib[ucns]` now requires `ucns>=0.9.1`. The
+- **UCNS boundary.** The former UCNS extra is deprecated and removed. The
+  current definition-first producer is source-only until a compatible stable
+  package and option profile exist. The
   `ucns` Python runtime remains stdlib-only; the upstream `ucns/formal` layer is
   Lean/Mathlib-backed and is not a Python runtime dependency.
 - **`available()`** maps each known sub-library (logical name → import name) and
