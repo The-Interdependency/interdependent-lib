@@ -40,6 +40,13 @@ pip install interdependent-lib[ptcna]  # ptcna>=0.1.1; repaired four-layer runti
 pip install interdependent-lib[all]
 ```
 
+Release `0.1.5` pins the candidate-state pair exactly: UCNS
+`b7b6f35cce69c273860923489a1c8b5372d14eb0` and PTCNA
+`c5fa9a599498f19c8345f2790a0636542dfbc6a1`. Run
+`interdependent_lib.validate_installed_pair()` after installation. Moving,
+registry-only, and unattributed installs fail closed; compatibility establishes
+construction, not usefulness.
+
 ---
 
 ## Quick Start

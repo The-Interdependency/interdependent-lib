@@ -51,17 +51,15 @@ def test_prime_tensor_stack_consolidated_into_single_ptcna_key():
     assert isinstance(interdependent_lib.available()["ptcna"], bool)
 
 
-def test_ptcna_extra_pins_published_dist_and_ptca_lib_gone():
-    """ptcna is published to PyPI, so a single `ptcna` extra pins it and it is
-    part of `all`. The superseded ptca-lib dist must not be pinned anywhere."""
+def test_ptcna_extra_pins_exact_compatible_pair_and_ptca_lib_gone():
     text = _pyproject_text()
     assert "ptca-lib" not in text, "ptca-lib is superseded by the ptcna consolidation"
-    assert 'ptcna = ["ptcna>=0.1.1"]' in text, "ptcna extra must pin the repaired runtime"
-    assert text.count('"ptcna>=0.1.1"') >= 2, "ptcna must also appear in the `all` extra"
-    assert "ptcna>=0.1.0" not in text
+    assert text.count(interdependent_lib.PTCNA_COMMIT) == 2
+    assert text.count(interdependent_lib.UCNS_COMMIT) == 3
+    assert "@main" not in text
 
 
-def test_ptcna_floor_is_visible_in_canonical_docs():
+def test_exact_pair_is_visible_in_canonical_docs():
     for relative in (
         "README.md",
         "CLAUDE.md",
@@ -70,7 +68,7 @@ def test_ptcna_floor_is_visible_in_canonical_docs():
         "libs/ptcna/README.md",
     ):
         text = (ROOT / relative).read_text(encoding="utf-8")
-        assert "ptcna>=0.1.1" in text, f"{relative} must name the runtime floor"
+        assert interdependent_lib.PTCNA_COMMIT in text, f"{relative} must name the exact PTCNA commit"
 
 
 def test_metapat_registered_with_unique_import_target_and_no_extra():
@@ -84,13 +82,12 @@ def test_metapat_registered_with_unique_import_target_and_no_extra():
     )
 
 
-def test_ucns_dependency_floor_is_locked_in_ucns_and_all_extras():
+def test_ucns_dependency_is_exact_in_ucns_and_all_extras():
     text = _pyproject_text()
-    assert 'ucns  = ["ucns>=0.9.1"]' in text
-    assert '"ucns>=0.9.1"' in text
-    assert "ucns>=0.8.0" not in text
+    assert text.count(interdependent_lib.UCNS_COMMIT) == 3
+    assert "@main" not in text
 
 
-def test_readme_mentions_ucns_floor():
+def test_readme_mentions_exact_ucns_commit():
     text = README.read_text(encoding="utf-8")
-    assert "ucns>=0.9.1" in text
+    assert interdependent_lib.UCNS_COMMIT in text

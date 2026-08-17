@@ -48,6 +48,10 @@ aimmh, ptcna). `dev` installs `pytest>=8.0`, `build`, and `twine`. The single
 METAPAT appear in `available()` and `libs/` but have no extra until they have
 stable PyPI releases.
 
+The candidate-state compatibility release pins exact merged sources rather
+than moving registry floors: UCNS `b7b6f35cce69c273860923489a1c8b5372d14eb0`
+and PTCNA `c5fa9a599498f19c8345f2790a0636542dfbc6a1`.
+
 > **Naming migration + consolidation.** The org-wide rename scheme and the
 > **prime-tensor stack consolidation** (pcna/pcta/pcsa → single `ptcna`;
 > `ucns` frozen) are ratified — `docs/naming-migration.md` is the reference,

@@ -20,7 +20,7 @@ docs/naming-migration.md.
 
 from __future__ import annotations
 
-__version__ = "0.1.4"
+__version__ = "0.1.5"
 __author__ = "Erin Patrick Spencer"
 __email__ = "wayseer@interdependentway.org"
 __license__ = "MPL-2.0"
@@ -34,6 +34,13 @@ from interdependent_lib.coherence_primes import (
     is_coherence_prime,
     nth,
     sequence_up_to,
+)
+from interdependent_lib.ptcna_pair import (
+    PTCNA_COMMIT,
+    UCNS_COMMIT,
+    PairValidationError,
+    build_pair_receipt,
+    validate_installed_pair,
 )
 
 # Registry of optional sub-libraries: logical_name -> stable import name.
@@ -75,4 +82,9 @@ __all__ = [
     "is_coherence_prime",
     "sequence_up_to",
     "nth",
+    "PTCNA_COMMIT",
+    "UCNS_COMMIT",
+    "PairValidationError",
+    "build_pair_receipt",
+    "validate_installed_pair",
 ]
