@@ -15,7 +15,7 @@ This repo holds **no primary sub-library code** — each acronym library lives i
 - Per-library documentation stubs in `libs/`
 - Org-wide best-practice documentation in `COPILOT.md`
 
-**Python requirement:** ≥ 3.9
+**Python requirement:** ≥ 3.11
 **License:** MPL-2.0 (see `LICENSE`). Relicensed from MIT to MPL-2.0 — weak copyleft: embed anywhere, but changes to these files must be published. (Earlier history: AGPL-3.0-or-later + commercial, then MIT.)
 
 ---
