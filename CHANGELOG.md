@@ -7,6 +7,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## 0.1.5 — 2026-08-17
+
+- Published the exact compatible UCNS/PTCNA candidate-state pair and added a
+  fail-closed installed-VCS/runtime identity validator.
+
 ## [Unreleased]
 
 ### Added

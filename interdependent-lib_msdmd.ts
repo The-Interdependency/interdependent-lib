@@ -50,6 +50,67 @@ export default defineMsdmdCollection({
       "id": "coherence_primes"
     },
     {
+      "block": "BOUNDARIES",
+      "fields": {
+        "admin_only": "false",
+        "auth_boundary": "none",
+        "network_boundary": "none",
+        "owner": "Erin Spencer",
+        "pii": "none",
+        "secrets": "none",
+        "since": "0.1.5",
+        "storage_boundary": "read installed distribution metadata",
+        "summary": "reads local installed-distribution identities and the PTCNA runtime receipt without network, writes, authentication, user-data, or administrative effects",
+        "user_data_boundary": "none"
+      },
+      "file": "interdependent_lib/ptcna_pair.py",
+      "id": "interdependent_pair_validation_boundary"
+    },
+    {
+      "block": "CONTRACTS",
+      "fields": {
+        "class": "evidence",
+        "given": "the compatibility receipt is built",
+        "then": "it names the exact merged UCNS and PTCNA commits and no moving reference"
+      },
+      "file": "interdependent_lib/ptcna_pair.py",
+      "id": "interdependent_pair_pins_exact_producers"
+    },
+    {
+      "block": "CONTRACTS",
+      "fields": {
+        "class": "safety",
+        "given": "either installed distribution lacks matching VCS commit metadata or runtime receipt identity",
+        "then": "validation fails before the pair is reported compatible"
+      },
+      "file": "interdependent_lib/ptcna_pair.py",
+      "id": "interdependent_pair_rejects_install_drift"
+    },
+    {
+      "block": "MODULE_BUILD",
+      "fields": {
+        "admin_only": "false",
+        "auth_boundary": "none",
+        "internal_surface": "_canonical_bytes, _installed_commit",
+        "module_kind": "adapter",
+        "module_name": "ptcna_pair",
+        "network_boundary": "none",
+        "owner": "Erin Spencer",
+        "public_surface": "UCNS_COMMIT, PTCNA_COMMIT, PairValidationError, build_pair_receipt, validate_installed_pair",
+        "requires": "ucns_ptcna_candidate_state, ptcna_ucns_integration",
+        "rollback": "remove pair exports and exact extras without modifying either producer",
+        "rollout": "explicit ptcna and all extras pinned to exact Git commits",
+        "since": "0.1.5",
+        "storage_boundary": "read installed distribution metadata",
+        "summary": "publishes and fail-closed verifies the compatible exactly pinned UCNS/PTCNA producer pair",
+        "tests": "tests/test_ptcna_pair.py",
+        "unresolved": "continuous seven-fold geometry, representative efficacy, production privacy",
+        "user_data_boundary": "none"
+      },
+      "file": "interdependent_lib/ptcna_pair.py",
+      "id": "interdependent_lib_ptcna_pair"
+    },
+    {
       "block": "MODULE_BUILD",
       "fields": {
         "admin_only": "false",
@@ -1348,9 +1409,84 @@ export default defineMsdmdCollection({
       },
       "file": "libs/ucns/src/witness_matrix.py",
       "id": "ucns_witness_matrix"
+    },
+    {
+      "block": "CHECKS",
+      "fields": {
+        "call": "self::test_installed_pair_rejects_unattributed_install",
+        "cleanup": "none",
+        "mutates": "none",
+        "proves": "interdependent_pair_rejects_install_drift",
+        "requires": "python3",
+        "timeout": "10"
+      },
+      "file": "tests/test_ptcna_pair.py",
+      "id": "check_interdependent_pair_drift"
+    },
+    {
+      "block": "CHECKS",
+      "fields": {
+        "call": "self::test_pair_receipt_is_exact_and_deterministic",
+        "cleanup": "none",
+        "mutates": "none",
+        "proves": "interdependent_pair_pins_exact_producers",
+        "requires": "python3",
+        "timeout": "10"
+      },
+      "file": "tests/test_ptcna_pair.py",
+      "id": "check_interdependent_pair_exact"
     }
   ],
   "edges": [
+    {
+      "from": "interdependent_pair_validation_boundary",
+      "kind": "owns",
+      "source_block": "BOUNDARIES",
+      "source_id": "interdependent_pair_validation_boundary",
+      "to": "Erin Spencer"
+    },
+    {
+      "from": "check_interdependent_pair_drift",
+      "kind": "calls",
+      "source_block": "CHECKS",
+      "source_id": "check_interdependent_pair_drift",
+      "to": "self::test_installed_pair_rejects_unattributed_install"
+    },
+    {
+      "from": "check_interdependent_pair_drift",
+      "kind": "claims_proves",
+      "source_block": "CHECKS",
+      "source_id": "check_interdependent_pair_drift",
+      "to": "interdependent_pair_rejects_install_drift"
+    },
+    {
+      "from": "check_interdependent_pair_drift",
+      "kind": "requires",
+      "source_block": "CHECKS",
+      "source_id": "check_interdependent_pair_drift",
+      "to": "python3"
+    },
+    {
+      "from": "check_interdependent_pair_exact",
+      "kind": "calls",
+      "source_block": "CHECKS",
+      "source_id": "check_interdependent_pair_exact",
+      "to": "self::test_pair_receipt_is_exact_and_deterministic"
+    },
+    {
+      "from": "check_interdependent_pair_exact",
+      "kind": "claims_proves",
+      "source_block": "CHECKS",
+      "source_id": "check_interdependent_pair_exact",
+      "to": "interdependent_pair_pins_exact_producers"
+    },
+    {
+      "from": "check_interdependent_pair_exact",
+      "kind": "requires",
+      "source_block": "CHECKS",
+      "source_id": "check_interdependent_pair_exact",
+      "to": "python3"
+    },
     {
       "from": "addition_boundary",
       "kind": "calls",
@@ -1427,6 +1563,27 @@ export default defineMsdmdCollection({
       "source_block": "MODULE_BUILD",
       "source_id": "division_theory",
       "to": "ucns_canonical"
+    },
+    {
+      "from": "interdependent_lib_ptcna_pair",
+      "kind": "owns",
+      "source_block": "MODULE_BUILD",
+      "source_id": "interdependent_lib_ptcna_pair",
+      "to": "Erin Spencer"
+    },
+    {
+      "from": "interdependent_lib_ptcna_pair",
+      "kind": "requires",
+      "source_block": "MODULE_BUILD",
+      "source_id": "interdependent_lib_ptcna_pair",
+      "to": "ptcna_ucns_integration"
+    },
+    {
+      "from": "interdependent_lib_ptcna_pair",
+      "kind": "requires",
+      "source_block": "MODULE_BUILD",
+      "source_id": "interdependent_lib_ptcna_pair",
+      "to": "ucns_ptcna_candidate_state"
     },
     {
       "from": "meta_module_build_runner",
@@ -2459,6 +2616,5 @@ export default defineMsdmdCollection({
     }
   ],
   "gaps": [],
-  "repo": "interdependent-lib",
-  "source_commit": "c8ffb82"
+  "repo": "interdependent-lib"
 });

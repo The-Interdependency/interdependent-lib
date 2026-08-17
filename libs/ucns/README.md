@@ -3,6 +3,8 @@
 **Source repo:** [The-Interdependency/ucns](https://github.com/The-Interdependency/ucns)  
 **Language:** Python 3.8+  **PyPI:** [`ucns`](https://pypi.org/project/ucns/)  
 **Meta-package extra:** `interdependent-lib[ucns]` requires `ucns>=0.9.1`  
+**Candidate pair:** UCNS `b7b6f35cce69c273860923489a1c8b5372d14eb0`
+with PTCNA `c5fa9a599498f19c8345f2790a0636542dfbc6a1`.
 **Letters:** 4
 
 ---

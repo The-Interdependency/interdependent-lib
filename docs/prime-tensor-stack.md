@@ -27,6 +27,11 @@ repos point *up* at this map; they do not import it.
 into the next; every circle, every seed, and every core **is itself a tensor**,
 so the same composition algebra applies at each level.
 
+The candidate-state compatibility pair is exactly UCNS
+`b7b6f35cce69c273860923489a1c8b5372d14eb0` with PTCNA
+`c5fa9a599498f19c8345f2790a0636542dfbc6a1`; installation compatibility does
+not establish architectural efficacy.
+
 | Module | Layer | Divides… → … | Tensor kind | Back-propagation |
 |--------|-------|--------------|-------------|------------------|
 | `ptcna.neural` | **neural** | (base) neural tensors | **neural** | **yes — the only differentiable layer** |

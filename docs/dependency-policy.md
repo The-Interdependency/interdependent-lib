@@ -26,6 +26,11 @@ Current packaged extras:
 - `aimmh` -> `aimmh-lib>=1.1.0`
 - `ptcna` -> `ptcna>=0.1.1`
 
+Release `0.1.5` overrides those historical registry floors for the
+candidate-state integration with exact VCS identities: UCNS
+`b7b6f35cce69c273860923489a1c8b5372d14eb0` and PTCNA
+`c5fa9a599498f19c8345f2790a0636542dfbc6a1`. Never substitute `@main`.
+
 The prime-tensor stack (`pcna` / `pcta` / `pcsa`) is consolidated into the single
 `ptcna` package, now published to PyPI and pinned by the `ptcna` extra (replacing
 the former per-repo intent and the once-planned `prime-stack` extra). The
