@@ -1,128 +1,117 @@
-# The Prime-Tensor Stack — canonical architecture map
+# The Prime-Tensor Stack — role and boundary map
 
-This document is the **single source of truth** for how The Interdependency's
-prime-tensor compute family fits together: the layers, what flows between them,
-and where the boundaries are. It is a **role-and-boundary map**, not a proof. It
-moves **no** theorem / proof / empirical status between repos — each repo keeps
-its own status vocabulary, and cross-repo interoperability is not continuity
-(see, e.g., `ucns`'s "cross-repo non-continuity" rule).
+This document is the cross-repository role-and-boundary map for the prime-tensor
+compute family. It is **not** a proof, and it moves no theorem, empirical,
+measurement, or architectural status between repositories.
 
-It lives here, in the aggregator, for the same reason `coherence_primes.py`
-does: it is canon that belongs to **no single leaf library**, and putting it
-here lets every repo cite it **without inverting the dependency graph**. Leaf
-repos point *up* at this map; they do not import it.
+## 2026-08-17 PTCNA construction correction
 
-> **Consolidation (2026-07).** The stack is no longer several repos. `pcna`,
-> `pcta`, and `pcsa` were never separate things — they are **layers of one
-> architecture** — and are now consolidated into a single package,
-> **`ptcna` — Prime Tensor Circled Neural Architecture**
-> (`The-Interdependency/ptcna`). PCEA stays a separate, orthogonal repo. `ptcna`
-> is the single upstream that feeds this aggregator.
+The intended PTCNA is **not** the currently published four-layer runtime.
+
+The intended dependency is:
+
+```text
+functioning conventional neural network
+        ↓
+UCNS audit
+        ↓
+source-bound relational evidence
+        ↓
+PTCNA construction derived from that evidence
+        ↓
+a0 / interdependent-lib consumption
+```
+
+Until UCNS performs that audit and PTCNA publishes a separately identified
+architecture derived from the evidence, intended PTCNA construction is
+**BLOCKED**.
+
+The existing `ptcna>=0.1.1` package remains available as a **historical
+pre-audit experimental scaffold**. This aggregator may expose/install that
+package, but must not represent its neural/circle/seed/core structure, ring
+sizes, weights, whole-string input projection, or sealed evaluation as the
+intended PTCNA architecture.
+
+For the intended PTCNA language path, the primitive input object is a **UCNS
+Unicode-character gonol**. Conventional tokenizer ids, subword ids, whole-string
+cryptographic fingerprints, and opaque external embeddings are not substitutes
+for that primitive.
 
 ---
 
-## One architecture, four layers
+## Historical scaffold map
 
-`ptcna` is one package with four layer modules. Each layer's tensors **divide**
-into the next; every circle, every seed, and every core **is itself a tensor**,
-so the same composition algebra applies at each level.
+The currently published `ptcna` package consolidates the former `pcna`, `pcta`,
+and `pcsa` repositories into one executable research scaffold. PCEA remains a
+separate orthogonal repository.
 
-The candidate-state compatibility pair is exactly UCNS
-`b7b6f35cce69c273860923489a1c8b5372d14eb0` with PTCNA
-`c5fa9a599498f19c8345f2790a0636542dfbc6a1`; installation compatibility does
-not establish architectural efficacy.
+| Module | Historical scaffold layer | Tensor kind | Back-propagation |
+|--------|---------------------------|-------------|------------------|
+| `ptcna.neural` | neural | neural | yes in the scaffold |
+| `ptcna.circle` | circle | auditing / timing | no |
+| `ptcna.seed`   | seed   | auditing / timing | no |
+| `ptcna.core`   | core   | auditing / timing | no |
 
-| Module | Layer | Divides… → … | Tensor kind | Back-propagation |
-|--------|-------|--------------|-------------|------------------|
-| `ptcna.neural` | **neural** | (base) neural tensors | **neural** | **yes — the only differentiable layer** |
-| `ptcna.circle` | **circle** | neural tensors → circles | auditing / timing | no |
-| `ptcna.seed`   | **seed**   | circles → seeds | auditing / timing | no |
-| `ptcna.core`   | **core**   | seeds → cores | auditing / timing | no |
+The candidate-state compatibility pair previously recorded between UCNS and
+PTCNA remains historical construction evidence for that scaffold only. It does
+not satisfy the restored requirement that UCNS first audit a functioning
+conventional neural network.
 
-```
-neural tensors  ──(circle layer divides)──►  circles
-circles         ──(seed layer divides)────►  seeds
-seeds           ──(core layer divides)────►  cores
-  back-propagation lives ONLY in the neural layer
-  circle / seed / core tensors are auditing & timing tensors (non-differentiable)
-PCEA — guardian: "last state as key for this state" (orthogonal; not a layer)
-```
-
-**Composition counts are variable.** The number of neural tensors in a circle,
-circles in a seed, and seeds in a core are all variable. The **one invariant**
-is that every circle, seed, and core is *itself a tensor*. (Any specific count a
-layer uses — a nominal heptagram `7`, `prime_core`'s experimental `157` — is a
-tunable choice, not a structural requirement.)
+The scaffold's frozen role-acquisition experiment also remains historical
+sealed evidence: `ptcna.experimental.v1` scored `0.3333333333` versus
+`0.9444444444` for its hashed-linear fallback, falsifying both declared
+usefulness and superiority claims for that exact in-sample scope. This does not
+evaluate the not-yet-built intended PTCNA.
 
 ---
 
-## Two things that are easy to get wrong
+## Authority boundaries
 
-**1. Back-propagation lives only in the neural layer.** Circle, seed, and core
-tensors are **auditing and timing tensors** — they observe and schedule; they do
-not differentiate. This matches the core layer's frozen gradient policy:
-differentiability descends through scalar payloads only; the `⊠` composition
-operator never appears on the autodiff tape (`∂(⊠)` is never taken). So
-"training" happens in the neural layer; circle/seed/core *audit and time*.
-`ptcna.neural.NeuralScalar` is the sole reverse-mode scalar, while the shared
-`ptcna.circle.CircleTensor` is carried unchanged through seed and core
-composition.
+**UCNS** owns the neural-audit prerequisite, the relational evidence it produces,
+and the Unicode-character gonols used as intended language-input primitives.
 
-**2. PCEA is not a layer of the stack.** PCEA (Prime Circular Encryption
-Algorithm) is the **guardian**: it applies "last state as key for this state"
-encryption at **every layer** for privacy, and is **orthogonal** to the
-neural→core chain. PCEA joins the family only at the meta-package level; it is
-never folded *into* `ptcna`.
+**PTCNA** owns preservation of its historical scaffold and, after the audit,
+construction and evaluation of a new candidate derived from the exact UCNS
+evidence.
 
-**3. UCNS and EDCM remain external authorities.** PTCNA's UCNS integration is
-typed and suspended until a reviewed PTCNA-specific higher-gonol producer
-profile exists; local identities make no UCNS representation claim. EDCM
-measurements enter Zeta only through an explicitly injected external provider.
-PTCNA does not ship a shadow EDCM implementation.
+**a0** may preserve or execute explicitly typed historical scaffold state, but a
+future intended PTCNA region requires a new producer identity. a0 does not
+inherit PTCNA architecture authority through integration.
 
----
+**PCEA** remains orthogonal privacy/guardian infrastructure and is not promoted
+into a PTCNA layer by this map.
 
-## fiqs — core internal propagation timing (Fick's law)
-
-Within the **core** layer, **fiqs gate when cores propagate internally**,
-according to Fick's first law of diffusion:
-
-```
-J = −D ∇φ
-```
-
-where `φ` is the core's field, `∇φ` its gradient, `D` the diffusivity, and `J`
-the flux. This governs the **timing** of internal core propagation — structure
-diffusing down its field gradient — it is **not** gradient descent: the `∇φ`
-here is the spatial field gradient that drives diffusion, not an autodiff
-gradient. The fiq substrate lives in `ptcna.core.prime_core` (see its `fiq.py`).
+**EDCM** remains an external measurement authority. PTCNA/a0 consumption of an
+EDCM result transfers no measurement validity.
 
 ---
 
 ## Packaging status
 
-| Member | PyPI | In `interdependent-lib` |
-|--------|------|--------------------------|
-| `ptcna` (neural/circle/seed/core) | **published** (`ptcna>=0.1.1`) | `ptcna` extra (+ `all`); registry key `ptcna` |
-| `pcea` (`pcea`) | published | `pcea` extra (+ `all`) |
-| `ucns` (`ucns`) | published | `ucns` extra (+ `all`) |
-| `aimmh` (`aimmh-lib`) | published | `aimmh` extra (+ `all`) |
-| `zfae` | **source-only** (runtime in `a0`) | registry key only; conceptual, no dist planned |
+| Member | Package status | Aggregator status |
+|--------|----------------|-------------------|
+| `ptcna` | published (`ptcna>=0.1.1`) | installable **historical scaffold** via `ptcna` extra |
+| `pcea` | published | `pcea` extra (+ `all`) |
+| `ucns` | published | `ucns` extra (+ `all`) |
+| `aimmh` | published as `aimmh-lib` | `aimmh` extra (+ `all`) |
+| `zfae` | repository/runtime authority remains separate | registry/runtime relation as declared by its consumers |
 
-The prior `ptca-lib` core-layer dist is **superseded** by the `ptcna`
-consolidation and is not pinned by any extra. The single `ptcna` extra replaces
-the former `pcna`/`pcta`/`pcsa` intent (the once-planned `prime-stack` extra is
-obsolete).
+The prior `ptca-lib` core-layer distribution remains superseded by the `ptcna`
+consolidation. That packaging fact does not promote the historical scaffold into
+the intended architecture.
 
 ---
 
-## See also
+## Next integration boundary
 
-- `interdependent_lib/coherence_primes.py` — the other piece of cross-cutting
-  canon (the recursive coherence-prime ladder the prime-indexing rides on).
-  Prime-consciousness intuition: primes whose `p-1` factorization is square-free
-  are likelier to fall into stability as part of a triadic recursion set.
-- `The-Interdependency/ptcna` — the consolidated four-layer package.
-- `The-Interdependency/ZFAE` — the inference / consciousness-event write-up (runtime in `a0`).
-- `The-Interdependency/PCEA` — the guardian.
-- `docs/naming-migration.md` — the ratified rename + consolidation scheme.
+`interdependent-lib` should not encode the unknown future PTCNA topology. When
+PTCNA eventually publishes an audit-derived candidate, integration must pin its
+new exact producer identity and preserve the historical package identity rather
+than silently treating an upgrade as continuity.
+
+## hmmm
+
+The architecture recovered by the UCNS neural audit, the future PTCNA package
+identity/API, and the exact compatibility boundary between the historical
+scaffold and the audit-derived candidate remain unresolved. No missing detail in
+this aggregator is permission to assume the result.
