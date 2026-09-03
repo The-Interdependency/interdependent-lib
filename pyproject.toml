@@ -28,7 +28,7 @@ aimmh = ["aimmh-lib>=1.1.0"]
 # See docs/naming-migration.md and docs/dependency-policy.md.
 ptcna = [
     "ucns @ git+https://github.com/The-Interdependency/ucns.git@b7b6f35cce69c273860923489a1c8b5372d14eb0",
-    "ptcna @ git+https://github.com/The-Interdependency/ptcna.git@c5fa9a599498f19c8345f2790a0636542dfbc6a1",
+    "ptcna @ git+https://github.com/The-Interdependency/ptcna.git@9c99bbaadf1c16648789e6ca5dd828cb80b56672",
 ]
 
 # Install all packaged libraries at once
@@ -36,7 +36,7 @@ all = [
     "pcea>=0.1.0",
     "ucns @ git+https://github.com/The-Interdependency/ucns.git@b7b6f35cce69c273860923489a1c8b5372d14eb0",
     "aimmh-lib>=1.1.0",
-    "ptcna @ git+https://github.com/The-Interdependency/ptcna.git@c5fa9a599498f19c8345f2790a0636542dfbc6a1",
+    "ptcna @ git+https://github.com/The-Interdependency/ptcna.git@9c99bbaadf1c16648789e6ca5dd828cb80b56672",
 ]
 
 # Developer tooling

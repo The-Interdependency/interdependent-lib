@@ -4,7 +4,7 @@
 **Language:** Python 3.8+  **PyPI:** [`ucns`](https://pypi.org/project/ucns/)  
 **Meta-package extra:** `interdependent-lib[ucns]` requires `ucns>=0.9.1`  
 **Candidate pair:** UCNS `b7b6f35cce69c273860923489a1c8b5372d14eb0`
-with PTCNA `c5fa9a599498f19c8345f2790a0636542dfbc6a1`.
+with PTCNA `9c99bbaadf1c16648789e6ca5dd828cb80b56672`.
 **Letters:** 4
 
 ---

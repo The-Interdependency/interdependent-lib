@@ -50,7 +50,7 @@ stable PyPI releases.
 
 The candidate-state compatibility release pins exact merged sources rather
 than moving registry floors: UCNS `b7b6f35cce69c273860923489a1c8b5372d14eb0`
-and PTCNA `c5fa9a599498f19c8345f2790a0636542dfbc6a1`.
+and PTCNA `9c99bbaadf1c16648789e6ca5dd828cb80b56672`.
 
 > **Naming migration + consolidation.** The org-wide rename scheme and the
 > **prime-tensor stack consolidation** (pcna/pcta/pcsa → single `ptcna`;

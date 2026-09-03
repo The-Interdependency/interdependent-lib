@@ -399,8 +399,8 @@ requires-dist = [
     { name = "build", marker = "extra == 'dev'" },
     { name = "pcea", marker = "extra == 'all'", specifier = ">=0.1.0" },
     { name = "pcea", marker = "extra == 'pcea'", specifier = ">=0.1.0" },
-    { name = "ptcna", marker = "extra == 'all'", git = "https://github.com/The-Interdependency/ptcna.git?rev=c5fa9a599498f19c8345f2790a0636542dfbc6a1" },
-    { name = "ptcna", marker = "extra == 'ptcna'", git = "https://github.com/The-Interdependency/ptcna.git?rev=c5fa9a599498f19c8345f2790a0636542dfbc6a1" },
+    { name = "ptcna", marker = "extra == 'all'", git = "https://github.com/The-Interdependency/ptcna.git?rev=9c99bbaadf1c16648789e6ca5dd828cb80b56672" },
+    { name = "ptcna", marker = "extra == 'ptcna'", git = "https://github.com/The-Interdependency/ptcna.git?rev=9c99bbaadf1c16648789e6ca5dd828cb80b56672" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "twine", marker = "extra == 'dev'" },
     { name = "ucns", marker = "extra == 'all'", git = "https://github.com/The-Interdependency/ucns.git?rev=b7b6f35cce69c273860923489a1c8b5372d14eb0" },
@@ -1019,7 +1019,7 @@ wheels = [
 [[package]]
 name = "ptcna"
 version = "0.1.1"
-source = { git = "https://github.com/The-Interdependency/ptcna.git?rev=c5fa9a599498f19c8345f2790a0636542dfbc6a1#c5fa9a599498f19c8345f2790a0636542dfbc6a1" }
+source = { git = "https://github.com/The-Interdependency/ptcna.git?rev=9c99bbaadf1c16648789e6ca5dd828cb80b56672#9c99bbaadf1c16648789e6ca5dd828cb80b56672" }
 dependencies = [
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },

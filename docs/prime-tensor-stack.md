@@ -27,10 +27,11 @@ architecture derived from the evidence, intended PTCNA construction is
 **BLOCKED**.
 
 The existing `ptcna>=0.1.1` package remains available as a **historical
-pre-audit experimental scaffold**. This aggregator may expose/install that
-package, but must not represent its neural/circle/seed/core structure, ring
-sizes, weights, whole-string input projection, or sealed evaluation as the
-intended PTCNA architecture.
+pre-audit experimental scaffold**, pinned at PTCNA
+`9c99bbaadf1c16648789e6ca5dd828cb80b56672`. This aggregator may
+expose/install that package, but must not represent its neural/circle/seed/core
+structure, ring sizes, weights, whole-string input projection, or sealed
+evaluation as the intended PTCNA architecture.
 
 For the intended PTCNA language path, the primitive input object is a **UCNS
 Unicode-character gonol**. Conventional tokenizer ids, subword ids, whole-string

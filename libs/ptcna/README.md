@@ -3,7 +3,7 @@
 **Source repo:** [The-Interdependency/ptcna](https://github.com/The-Interdependency/ptcna)
 **Language:** Python 3.10+
 **PyPI:** `ptcna>=0.1.1`
-**Candidate pair:** PTCNA `c5fa9a599498f19c8345f2790a0636542dfbc6a1`
+**Candidate pair:** PTCNA `9c99bbaadf1c16648789e6ca5dd828cb80b56672`
 with UCNS `b7b6f35cce69c273860923489a1c8b5372d14eb0`.
 **Consolidates:** the former `pcna`, `pcta`, and `pcsa` repos.
 
