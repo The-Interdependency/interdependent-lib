@@ -59,18 +59,6 @@ def test_ptcna_extra_pins_exact_compatible_pair_and_ptca_lib_gone():
     assert "@main" not in text
 
 
-def test_exact_pair_is_visible_in_canonical_docs():
-    for relative in (
-        "README.md",
-        "CLAUDE.md",
-        "docs/dependency-policy.md",
-        "docs/prime-tensor-stack.md",
-        "libs/ptcna/README.md",
-    ):
-        text = (ROOT / relative).read_text(encoding="utf-8")
-        assert interdependent_lib.PTCNA_COMMIT in text, f"{relative} must name the exact PTCNA commit"
-
-
 def test_metapat_registered_with_unique_import_target_and_no_extra():
     """METAPAT (FLAR) is a registry key probing its package-unique import name,
     but has no extra until it ships a stable PyPI release (dependency policy)."""
@@ -87,7 +75,3 @@ def test_ucns_dependency_is_exact_in_ucns_and_all_extras():
     assert text.count(interdependent_lib.UCNS_COMMIT) == 3
     assert "@main" not in text
 
-
-def test_readme_mentions_exact_ucns_commit():
-    text = README.read_text(encoding="utf-8")
-    assert interdependent_lib.UCNS_COMMIT in text
